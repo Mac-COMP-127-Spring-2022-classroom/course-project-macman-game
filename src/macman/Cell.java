@@ -17,7 +17,7 @@ public class Cell {
         this.size = size;
         graphics = new GraphicsGroup();
         square = new Rectangle(0, 0, size, size);
-        square.setStrokeColor(Color.WHITE); // change later
+        square.setStrokeColor(Color.BLACK); // change later
         graphics.add(square);
 
         setPositions();
