@@ -1,122 +1,87 @@
-// package macman;
-
-// import edu.macalester.graphics.GraphicsGroup;
-
-// public class Grid extends GraphicsGroup {
-
-// protected int num_rows, num_cols;
-
-// protected double size;
-
-// protected Cell[][] cells;
-
-// public Grid(int num_rows, int num_cols, double size) {
-// this.num_rows = num_rows;
-// this.num_cols = num_cols;
-// this.size = size;
-// createGrid();
-// }
-
-// private void createGrid() {
-// cells = new Cell[num_rows][num_cols];
-
-// double x = 0;
-// double y = 0;
-// for (int i = 0; i < num_rows; i++) {
-// for (int j = 0; j < num_cols; j++) {
-// Cell cell = new Cell(size);
-// cell.getGraphics().setPosition(x, y);
-// cells[i][j] = cell;
-// this.add(cell.getGraphics());
-// x += cell.getSize();
-// }
-// x = 0;
-// y += cells[i][0].getSize();
-// }
-// }
-// }
-
-
 package macman;
 
-import java.awt.Color;
-<<<<<<< HEAD
-=======
-
->>>>>>> d086afb35105a583656880a8793cfd1a88fbeaa9
-import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.GraphicsGroup;
 
 public class Grid extends GraphicsGroup {
-    protected int num_rows, num_cols;
+    protected int numRows, numCols;
     protected double size;
-    protected GameElements[][] cells;
-    private CanvasWindow canvas;
+    protected Cell[][] cells;
+    private Player player;
+    private int playerRow = 11;
+    private int playerCol = 11;
 
-<<<<<<< HEAD
-=======
-    protected GameElements[][] cells;
-    
-    private CanvasWindow canvas;
 
->>>>>>> d086afb35105a583656880a8793cfd1a88fbeaa9
-    public Grid(int num_rows, int num_cols, int size, String[][] maze, CanvasWindow canvas) {
-        this.num_rows = num_rows;
-        this.num_cols = num_cols;
+    public Grid(int numRows, int numCols, int size, String[][] maze, Player player) {
+        this.numRows = numRows;
+        this.numCols = numCols;
         this.size = size;
-        canvas.setBackground(Color.BLACK);
-        this.canvas = canvas;
+        this.player = player;
         createGrid(maze);
+
     }
 
     public void createGrid(String[][] maze) {
-<<<<<<< HEAD
-        cells = new GameElements[num_rows][num_cols];
-        for (int i = 0; i < num_rows; i++) {
-            for (int j = 0; j < num_cols; j++) {
+        cells = new Cell[numRows][numCols];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
                 String type = maze[i][j];
-                GameElements element = null;
+                Cell cell = new Cell(size);
+                cell.getGraphics().setPosition(i*size, j*size);
                 if (type.equals("B")) {
-                    element = new Wall(i * size, j * size, size, size);
-                } else if (type.equals("P")) {
-                    element = new Player(i * size + 14, j * size + 11, size / 2.5, size / 2.5);
+                    cell.addGraphics(new Wall(size, size));
+                    cell.setTraversable(false);
                 } else if (type.equals("C")) {
-                    element = new Coin(i * size + 11, j * size + 11, size / 6, size / 6);
-                } if (element != null) {
-                    canvas.add(element.getGraphics());
-                    cells[i][j] = element;
+                    cell.addGraphics(new Coin(size / 6, size / 6));
                 }
+                
+                this.add(cell.getGraphics());
+                cells[i][j] = cell;
             }
-=======
-        cells = new GameElements[9][10];
-
-        for (int i = 0; i < num_rows; i++) {
-            for (int j = 0; j < num_cols; j++) {
-                String type = maze[i][j];
-                System.out.println(type);
-                GameElements element = null;
-                if (type.equals("X")) {
-                    element = new Wall(i * size, j * size + 25, size, size / 3);
-                } else if (type.equals("P")) {
-                    element = new Player(i * size + 25, j * size + 25, size / 3, size / 3);
-                } else if (type.equals("C")) {
-                    element = new Coin(i * size + 25, j * size + 25, size / 4, size / 4);
-                }
-                if (element != null) {
-                    canvas.add(element.getGraphics());
-                    cells[i][j] = element;
-                }
-            }  
->>>>>>> d086afb35105a583656880a8793cfd1a88fbeaa9
         }
+
+        cells[playerRow][playerCol].addGraphics(player);
     }
 
-    // public GameElements[][] getCells() {
-    //     return cells;
-    // }
+    public void erase() {
+        cells[playerRow][playerCol].getGraphics().remove(player);
+    }
 
-    public void placePlayer(int i, int j, Player p) {
-        GameElements cell = cells[i][j];
-        p.getGraphics().setCenter(cell.getGraphics().getCenter().getX(), cell.getGraphics().getCenter().getY());
+    private void move(int row, int col) {
+        if (row >= numRows || col >= numCols) {
+            // Pac-Man off screen
+        } else if (!cells[row][col].getTraversable()) { 
+            // hit wall
+            System.out.println("HIT WALL");
+        } else {
+            erase();
+        
+            playerCol = col;
+            playerRow = row;
+            cells[row][col].addGraphics(player);
+        }
+        
+    }
+
+    public void movePlayerRight() {
+        // move player left
+        move(playerRow + 1, playerCol);
+    }
+
+    public void movePlayerLeft() {
+        // move player left
+        // currently stays in place
+        move(playerRow, playerCol);
+    }
+
+    public void movePlayerDown() {
+        // move player up
+        // currently stays in place
+        move(playerRow, playerCol);
+    }
+
+    public void movePlayerUp() {
+        // move player down
+        // currently stays in place
+        move(playerRow, playerCol);
     }
 }

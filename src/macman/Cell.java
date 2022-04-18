@@ -8,23 +8,27 @@ import edu.macalester.graphics.Rectangle;
 
 public class Cell {
     private GraphicsGroup graphics;
-    private Rectangle square;
-    private double size;
+    private Rectangle rectangle;
+    private boolean isTraversable;
     
     public Cell(double size) {
-        this.size = size;
         graphics = new GraphicsGroup();
-        square = new Rectangle(0, 0, size, size);
-<<<<<<< HEAD
-        square.setStrokeColor(Color.BLACK); // change later
-=======
-        square.setStrokeColor(Color.BLACK); 
->>>>>>> d086afb35105a583656880a8793cfd1a88fbeaa9
-        graphics.add(square);
+        rectangle = new Rectangle(0, 0, size, size);
+        rectangle.setStrokeColor(Color.GREEN); 
+        graphics.add(rectangle);
         setPositions();
+        isTraversable = true;
     }
 
     private void setPositions() {
+    }
+
+    public void setTraversable(boolean isTraversable) {
+        this.isTraversable = isTraversable;
+    }
+
+    public boolean getTraversable() {
+        return isTraversable;
     }
 
     public boolean isInBounds(Point point) {
@@ -32,22 +36,15 @@ public class Cell {
     }
 
     public double getSize() {
-        return square.getWidth();
+        return rectangle.getWidth();
     }
 
     public GraphicsGroup getGraphics () {
         return graphics;
-    } 
+    }
 
-    // public void setColor(int i) {
-    //     if (colorInt < i) {
-    //         colorInt = i;
-    //         square.setFillColor(COLORS[i]);
-    //     }
-
-    // }
-
-    // public void setColor(Color color) {
-    //     square.setFillColor(color);
-    // }
+    public void addGraphics(GraphicsGroup group) {
+        group.setCenter(rectangle.getCenter());
+        this.graphics.add(group);
+    }
 }
