@@ -63,25 +63,18 @@ public class Grid extends GraphicsGroup {
     }
 
     public void movePlayerRight() {
-        // move player left
         move(playerRow + 1, playerCol);
     }
 
     public void movePlayerLeft() {
-        // move player left
-        // currently stays in place
-        move(playerRow, playerCol);
+        move(playerRow - 1, playerCol);
     }
 
     public void movePlayerDown() {
-        // move player up
-        // currently stays in place
-        move(playerRow, playerCol);
+        move(playerRow, playerCol + 1);
     }
 
     public void movePlayerUp() {
-        // move player down
-        // currently stays in place
-        move(playerRow, playerCol);
+        move(playerRow, playerCol - 1);
     }
 }

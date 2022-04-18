@@ -2,6 +2,8 @@ package macman;
 
 import java.awt.Color;
 import edu.macalester.graphics.CanvasWindow;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
@@ -16,17 +18,38 @@ public class MacManGame {
         canvas.setBackground(Color.BLACK);
         generateMaze();
         player = new Player(12, 12);
-        grid = new Grid(24, 24, 27, maze, player);
+        grid = new Grid(24, 24, 30, maze, player);
         canvas.add(grid);
 
         canvas.onKeyDown(event -> {
+            animatePlayer();
             System.out.println("KEY DOWN");
         });
+    }
 
+    public void animatePlayer() {
         canvas.animate(event -> {
             grid.movePlayerRight();
         });
     }
+
+    // public void animatePlayer(KeyEvent e) {
+    //     canvas.animate(event -> {
+    //         int keyCode = e.getKeyCode();
+    //         if(keyCode == KeyEvent.VK_DOWN) {
+    //             grid.movePlayerDown();
+    //         }
+    //         if(keyCode == KeyEvent.VK_UP) {
+    //             grid.movePlayerUp();
+    //         }
+    //         if(keyCode == KeyEvent.VK_RIGHT) {
+    //             grid.movePlayerRight();
+    //         }
+    //         if(keyCode == KeyEvent.VK_LEFT) {
+    //             grid.movePlayerLeft();
+    //         }
+    //     });
+    // }
         
 
     private void generateMaze() {
