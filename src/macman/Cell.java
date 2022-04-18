@@ -10,16 +10,17 @@ public class Cell {
     private GraphicsGroup graphics;
     private Rectangle square;
     private double size;
-    // private int colorInt = -1;
-    // private final Color[] COLORS = new Color[]{Color.GRAY, Color.YELLOW, Color.GREEN};
-
+    
     public Cell(double size) {
         this.size = size;
         graphics = new GraphicsGroup();
         square = new Rectangle(0, 0, size, size);
+<<<<<<< HEAD
         square.setStrokeColor(Color.BLACK); // change later
+=======
+        square.setStrokeColor(Color.BLACK); 
+>>>>>>> d086afb35105a583656880a8793cfd1a88fbeaa9
         graphics.add(square);
-
         setPositions();
     }
 

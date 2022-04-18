@@ -1,5 +1,6 @@
 package macman;
 
+<<<<<<< HEAD
 import edu.macalester.graphics.GraphicsObject;
 
 public class Ghosts extends GameElements{
@@ -17,3 +18,5 @@ public class Ghosts extends GameElements{
     }
     
 }
+=======
+>>>>>>> d086afb35105a583656880a8793cfd1a88fbeaa9
