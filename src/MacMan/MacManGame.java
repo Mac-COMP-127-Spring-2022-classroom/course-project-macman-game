@@ -21,13 +21,6 @@ public class MacManGame {
         canvas.add(grid);
 
         canvas.onKeyDown(event -> {
-            animatePlayer(event);
-            System.out.println("KEY DOWN");
-        });
-    }
-
-    public void animatePlayer(KeyboardEvent event) {
-        canvas.animate(() -> {
             if (event.getKey().toString() == "RIGHT_ARROW") {
                 grid.movePlayerRight();
             } else if (event.getKey().toString() == "LEFT_ARROW") {
@@ -37,8 +30,9 @@ public class MacManGame {
             } else if (event.getKey().toString() == "DOWN_ARROW") {
                 grid.movePlayerDown();
             }
+            System.out.println("KEY DOWN");
         });
-    }   
+    }  
 
     private void generateMaze() {
         maze = new String[24][24];
