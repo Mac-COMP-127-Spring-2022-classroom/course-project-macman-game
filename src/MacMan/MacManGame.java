@@ -2,6 +2,8 @@ package macman;
 
 import java.awt.Color;
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.events.KeyboardEvent;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -22,14 +24,22 @@ public class MacManGame {
         canvas.add(grid);
 
         canvas.onKeyDown(event -> {
-            animatePlayer();
+            animatePlayer(event);
             System.out.println("KEY DOWN");
         });
     }
 
-    public void animatePlayer() {
-        canvas.animate(event -> {
-            grid.movePlayerRight();
+    public void animatePlayer(KeyboardEvent event) {
+        canvas.animate(() -> {
+            if (event.getKey().toString() == "RIGHT_ARROW") {
+                grid.movePlayerRight();
+            } else if (event.getKey().toString() == "LEFT_ARROW") {
+                grid.movePlayerLeft();
+            } else if (event.getKey().toString() == "UP_ARROW") {
+                grid.movePlayerUp();
+            } else if (event.getKey().toString() == "DOWN_ARROW") {
+                grid.movePlayerDown();
+            }
         });
     }
 
@@ -55,7 +65,7 @@ public class MacManGame {
     private void generateMaze() {
         maze = new String[24][24];
         maze[0] = new String[] { "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "B" };
-        maze[1] = new String[] { "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "P", "B" };
+        maze[1] = new String[] { "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B" };
         maze[2] = new String[] { "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B" };
         maze[3] = new String[] { "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B" };
         maze[4] = new String[] { "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B" };
