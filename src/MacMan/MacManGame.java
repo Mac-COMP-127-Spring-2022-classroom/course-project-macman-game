@@ -41,26 +41,7 @@ public class MacManGame {
                 grid.movePlayerDown();
             }
         });
-    }
-
-    // public void animatePlayer(KeyEvent e) {
-    //     canvas.animate(event -> {
-    //         int keyCode = e.getKeyCode();
-    //         if(keyCode == KeyEvent.VK_DOWN) {
-    //             grid.movePlayerDown();
-    //         }
-    //         if(keyCode == KeyEvent.VK_UP) {
-    //             grid.movePlayerUp();
-    //         }
-    //         if(keyCode == KeyEvent.VK_RIGHT) {
-    //             grid.movePlayerRight();
-    //         }
-    //         if(keyCode == KeyEvent.VK_LEFT) {
-    //             grid.movePlayerLeft();
-    //         }
-    //     });
-    // }
-        
+    }   
 
     private void generateMaze() {
         maze = new String[24][24];
