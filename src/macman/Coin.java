@@ -11,8 +11,8 @@ public class Coin extends GraphicsGroup {
     public Coin(double ballWidth, double ballHeight) {
         super();
         coin = new Ellipse(0, 0, ballWidth, ballHeight);
-        coin.setFillColor(Color.PINK);
-        coin.setStrokeColor(Color.PINK);
+        coin.setFillColor(Color.WHITE);
+        coin.setStrokeColor(Color.WHITE);
         this.add(coin);
     }
 }

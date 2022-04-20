@@ -14,7 +14,6 @@ public class Cell {
     public Cell(double size) {
         graphics = new GraphicsGroup();
         rectangle = new Rectangle(0, 0, size, size);
-        rectangle.setStrokeColor(new Color(0, 0, 153)); 
         graphics.add(rectangle);
         setPositions();
         isTraversable = true;
