@@ -14,7 +14,7 @@ public class Cell {
     public Cell(double size) {
         graphics = new GraphicsGroup();
         rectangle = new Rectangle(0, 0, size, size);
-        rectangle.setStrokeColor(Color.GREEN); 
+        rectangle.setStrokeColor(new Color(0, 0, 153)); 
         graphics.add(rectangle);
         setPositions();
         isTraversable = true;
@@ -46,5 +46,9 @@ public class Cell {
     public void addGraphics(GraphicsGroup group) {
         group.setCenter(rectangle.getCenter());
         this.graphics.add(group);
+    }
+
+    public void removeGraphics(GraphicsGroup group) {
+        this.graphics.remove(group);
     }
 }
