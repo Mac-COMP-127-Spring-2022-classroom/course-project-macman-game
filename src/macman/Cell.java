@@ -8,7 +8,7 @@ public class Cell {
     private GraphicsGroup graphics;
     private Rectangle rectangle;
     private boolean isTraversable;
-    
+
     public Cell(double size) {
         graphics = new GraphicsGroup();
         rectangle = new Rectangle(0, 0, size, size);
@@ -36,7 +36,7 @@ public class Cell {
         return rectangle.getWidth();
     }
 
-    public GraphicsGroup getGraphics () {
+    public GraphicsGroup getGraphics() {
         return graphics;
     }
 
