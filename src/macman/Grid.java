@@ -43,7 +43,10 @@ public class Grid extends GraphicsGroup {
     }
 
     public void erase() {
-        cells[playerRow][playerCol].getGraphics().remove(player);
+        if (cells[playerRow][playerCol].getGraphics() != null) {
+            cells[playerRow][playerCol].removeGraphics();
+        }
+        // cells[playerRow][playerCol].getGraphics().remove(player);
     }
 
     private void move(int row, int col) {

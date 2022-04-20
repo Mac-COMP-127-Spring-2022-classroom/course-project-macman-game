@@ -48,7 +48,7 @@ public class Cell {
         this.graphics.add(group);
     }
 
-    public void removeGraphics(GraphicsGroup group) {
-        this.graphics.remove(group);
+    public void removeGraphics() {
+        this.graphics.removeAll();
     }
 }
