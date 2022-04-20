@@ -1,7 +1,5 @@
 package macman;
 
-import java.awt.Color;
-
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
