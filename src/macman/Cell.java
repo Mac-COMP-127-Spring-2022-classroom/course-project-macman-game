@@ -8,7 +8,9 @@ public class Cell {
     private GraphicsGroup graphics;
     private Rectangle rectangle;
     private boolean isTraversable;
-
+    private Coin coin;
+    private Player player;
+    
     public Cell(double size) {
         graphics = new GraphicsGroup();
         rectangle = new Rectangle(0, 0, size, size);
@@ -36,7 +38,7 @@ public class Cell {
         return rectangle.getWidth();
     }
 
-    public GraphicsGroup getGraphics() {
+    public GraphicsGroup getGraphics () {
         return graphics;
     }
 
@@ -47,5 +49,29 @@ public class Cell {
 
     public void removeGraphics() {
         this.graphics.removeAll();
+    }
+
+    public void removeCoin(){
+        if (coin != null) {
+            this.graphics.remove(coin);
+        }
+        coin = null;
+    }
+
+    public void addCoin(double size){
+        coin = new Coin(size / 6, size / 6);
+        this.addGraphics(coin);
+    }
+
+    public void removePlayer() {
+        if (player != null) {
+            this.graphics.remove(player);
+        }
+        this.player = null;
+    }
+
+    public void addPlayer(Player player) {
+        this.player = player;
+        this.addGraphics(player);
     }
 }

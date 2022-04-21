@@ -36,15 +36,13 @@ public class Grid extends GraphicsGroup {
                     cell.addGraphics(new Wall(size, size));
                     cell.setTraversable(false);
                 } else if (type.equals("C")) {
-                    cell.addGraphics(new Coin(size / 6, size / 6));
+                    cell.addCoin(size);
                 }
-
                 this.add(cell.getGraphics());
                 cells[i][j] = cell;
             }
         }
-
-        cells[playerRow][playerCol].addGraphics(player);
+        cells[playerRow][playerCol].addPlayer(player);;
         cells[10][10].addGraphics(blinky);
         cells[9][10].addGraphics(pinky);
         cells[8][10].addGraphics(inky);
@@ -53,8 +51,9 @@ public class Grid extends GraphicsGroup {
 
     public void erase() {
         if (cells[playerRow][playerCol].getGraphics() != null) {
-            cells[playerRow][playerCol].removeGraphics();
+            cells[playerRow][playerCol].removeCoin();      
         }
+        cells[playerRow][playerCol].removePlayer(); 
     }
 
     private void move(int row, int col) {
@@ -68,7 +67,7 @@ public class Grid extends GraphicsGroup {
 
             playerCol = col;
             playerRow = row;
-            cells[row][col].addGraphics(player);
+            cells[row][col].addPlayer(player);;
         }
 
     }
