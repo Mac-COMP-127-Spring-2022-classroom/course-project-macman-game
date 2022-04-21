@@ -10,7 +10,8 @@ public class Cell {
     private boolean isTraversable;
     private Coin coin;
     private Player player;
-    
+    private Ghost blinky, pinky, inky, clyde;
+
     public Cell(double size) {
         graphics = new GraphicsGroup();
         rectangle = new Rectangle(0, 0, size, size);
@@ -57,21 +58,38 @@ public class Cell {
         }
         coin = null;
     }
-
+    
     public void addCoin(double size){
         coin = new Coin(size / 6, size / 6);
         this.addGraphics(coin);
     }
-
+    
     public void removePlayer() {
         if (player != null) {
             this.graphics.remove(player);
         }
         this.player = null;
     }
-
+    
     public void addPlayer(Player player) {
         this.player = player;
         this.addGraphics(player);
+    }
+    
+    public void addGhostBlinky(Ghost blinky) {
+        this.blinky = blinky;
+        this.addGraphics(blinky);
+    }
+    public void addGhostInky(Ghost inky) {
+        this.inky = inky;
+        this.addGraphics(inky);
+    }
+    public void addGhostClyde(Ghost clyde) {
+        this.clyde = clyde;
+        this.addGraphics(clyde);
+    }
+    public void addGhostPinky(Ghost pinky) {
+        this.pinky = pinky;
+        this.addGraphics(pinky);
     }
 }

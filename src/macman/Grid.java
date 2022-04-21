@@ -42,18 +42,18 @@ public class Grid extends GraphicsGroup {
                 cells[i][j] = cell;
             }
         }
-        cells[playerRow][playerCol].addPlayer(player);;
-        cells[10][10].addGraphics(blinky);
-        cells[9][10].addGraphics(pinky);
-        cells[8][10].addGraphics(inky);
-        cells[7][10].addGraphics(clyde);
+        cells[playerRow][playerCol].addPlayer(player);
+        cells[10][10].addGhostBlinky(blinky);
+        cells[9][10].addGhostPinky(pinky);
+        cells[8][10].addGhostInky(inky);
+        cells[7][10].addGhostClyde(clyde);
     }
 
     public void erase() {
         if (cells[playerRow][playerCol].getGraphics() != null) {
-            cells[playerRow][playerCol].removeCoin();      
+            cells[playerRow][playerCol].removeCoin();
         }
-        cells[playerRow][playerCol].removePlayer(); 
+        cells[playerRow][playerCol].removePlayer();
     }
 
     private void move(int row, int col) {
@@ -67,7 +67,7 @@ public class Grid extends GraphicsGroup {
 
             playerCol = col;
             playerRow = row;
-            cells[row][col].addPlayer(player);;
+            cells[row][col].addPlayer(player);
         }
 
     }

@@ -15,12 +15,8 @@ public class MacManGame {
     public MacManGame() {
         canvas = new CanvasWindow("mac-man", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
-        generateMaze();
+        settingUpGame();
         player = new Player(20, 20);
-        blinky = new Ghost(20, 20, "blinky");
-        pinky = new Ghost(20, 20, "pinky");
-        inky = new Ghost(20, 20, "inky");
-        clyde = new Ghost(20, 20, "clyde");
         grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
         canvas.add(grid);
 
@@ -36,6 +32,12 @@ public class MacManGame {
             }
             System.out.println("KEY DOWN");
         });
+    }
+
+    private void settingUpGame() {
+        generateMaze();
+        createGhosts();
+        canvas.draw();
     }
 
     private void generateMaze() {
@@ -88,6 +90,13 @@ public class MacManGame {
             "C", "C", "C", "C", "C", "C", "B" };
         maze[23] = new String[] { "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "", "B", "B", "B", "B", "B", "B",
             "B", "B", "B", "B", "B", "B", "B" };
+    }
+
+    private void createGhosts() {
+        blinky = new Ghost(20, 20, "blinky");
+        pinky = new Ghost(20, 20, "pinky");
+        inky = new Ghost(20, 20, "inky");
+        clyde = new Ghost(20, 20, "clyde");
     }
 
     public static void main(String[] args) {
