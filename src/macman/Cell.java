@@ -80,14 +80,17 @@ public class Cell {
         this.blinky = blinky;
         this.addGraphics(blinky);
     }
+
     public void addGhostInky(Ghost inky) {
         this.inky = inky;
         this.addGraphics(inky);
     }
+
     public void addGhostClyde(Ghost clyde) {
         this.clyde = clyde;
         this.addGraphics(clyde);
     }
+    
     public void addGhostPinky(Ghost pinky) {
         this.pinky = pinky;
         this.addGraphics(pinky);

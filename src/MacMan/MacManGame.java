@@ -1,6 +1,8 @@
 package macman;
 
 import java.awt.Color;
+import java.util.concurrent.BlockingDeque;
+
 import edu.macalester.graphics.CanvasWindow;
 
 public class MacManGame {
@@ -16,6 +18,7 @@ public class MacManGame {
         canvas = new CanvasWindow("mac-man", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
         settingUpGame();
+        startGame();
         player = new Player(20, 20);
         grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
         canvas.add(grid);
@@ -38,6 +41,15 @@ public class MacManGame {
         generateMaze();
         createGhosts();
         canvas.draw();
+    }
+
+    private void startGame() {
+        canvas.animate(() -> {
+            blinky.updatePosition(0.01);
+            inky.updatePosition(0.01);
+            clyde.updatePosition(0.01);
+            pinky.updatePosition(0.01);
+        });
     }
 
     private void generateMaze() {
@@ -93,10 +105,15 @@ public class MacManGame {
     }
 
     private void createGhosts() {
-        blinky = new Ghost(20, 20, "blinky");
-        pinky = new Ghost(20, 20, "pinky");
-        inky = new Ghost(20, 20, "inky");
-        clyde = new Ghost(20, 20, "clyde");
+        double angleB = Math.random() * (120 - 40) + 70;
+        double angleP = Math.random() * (120 - 40) + 70;
+        double angleI = Math.random() * (120 - 40) + 70;
+        double angleC = Math.random() * (120 - 40) + 70;
+
+        blinky = new Ghost(20, 20, "blinky", 500, 0);
+        pinky = new Ghost(20, 20, "pinky", 500, angleP);
+        inky = new Ghost(20, 20, "inky", 500, angleI);
+        clyde = new Ghost(20, 20, "clyde", 500, angleC);
     }
 
     public static void main(String[] args) {
