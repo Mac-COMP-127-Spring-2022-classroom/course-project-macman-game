@@ -1,7 +1,6 @@
 package macman;
 
 import java.awt.Color;
-import java.util.concurrent.BlockingDeque;
 
 import edu.macalester.graphics.CanvasWindow;
 
@@ -110,7 +109,7 @@ public class MacManGame {
         double angleI = Math.random() * (120 - 40) + 70;
         double angleC = Math.random() * (120 - 40) + 70;
 
-        blinky = new Ghost(20, 20, "blinky", 500, 0);
+        blinky = new Ghost(20, 20, "blinky", 500, angleB);
         pinky = new Ghost(20, 20, "pinky", 500, angleP);
         inky = new Ghost(20, 20, "inky", 500, angleI);
         clyde = new Ghost(20, 20, "clyde", 500, angleC);

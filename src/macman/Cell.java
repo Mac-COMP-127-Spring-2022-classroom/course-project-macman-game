@@ -90,7 +90,7 @@ public class Cell {
         this.clyde = clyde;
         this.addGraphics(clyde);
     }
-    
+
     public void addGhostPinky(Ghost pinky) {
         this.pinky = pinky;
         this.addGraphics(pinky);
