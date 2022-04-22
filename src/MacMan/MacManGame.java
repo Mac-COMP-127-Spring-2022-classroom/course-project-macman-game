@@ -1,6 +1,8 @@
 package macman;
 
 import java.awt.Color;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import edu.macalester.graphics.CanvasWindow;
 
@@ -17,7 +19,6 @@ public class MacManGame {
         canvas = new CanvasWindow("mac-man", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
         settingUpGame();
-        startGame();
         player = new Player(20, 20);
         grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
         canvas.add(grid);
@@ -34,21 +35,17 @@ public class MacManGame {
             }
             System.out.println("KEY DOWN");
         });
+
+        animateGhost(blinky);
+        // animateGhost(pinky);
+        // animateGhost(inky);
+        // animateGhost(clyde);
     }
 
     private void settingUpGame() {
         generateMaze();
         createGhosts();
         canvas.draw();
-    }
-
-    private void startGame() {
-        canvas.animate(() -> {
-            blinky.updatePosition(0.01);
-            inky.updatePosition(0.01);
-            clyde.updatePosition(0.01);
-            pinky.updatePosition(0.01);
-        });
     }
 
     private void generateMaze() {
@@ -104,15 +101,22 @@ public class MacManGame {
     }
 
     private void createGhosts() {
-        double angleB = Math.random() * (120 - 40) + 70;
-        double angleP = Math.random() * (120 - 40) + 70;
-        double angleI = Math.random() * (120 - 40) + 70;
-        double angleC = Math.random() * (120 - 40) + 70;
+        blinky = new Ghost(20, 20, "blinky");
+        pinky = new Ghost(20, 20, "pinky");
+        inky = new Ghost(20, 20, "inky");
+        clyde = new Ghost(20, 20, "clyde");
+    }
 
-        blinky = new Ghost(20, 20, "blinky", 500, angleB);
-        pinky = new Ghost(20, 20, "pinky", 500, angleP);
-        inky = new Ghost(20, 20, "inky", 500, angleI);
-        clyde = new Ghost(20, 20, "clyde", 500, angleC);
+    private void animateGhost(Ghost ghost) {
+        grid.chooseRandomDirection();
+        // need to find a better way to make the ghost move continously at a fixed rate. maybe use streams???
+        // got this code from https://stackoverflow.com/questions/11416242/how-to-repeatedly-call-a-function-after-a-certain-amount-of-time
+        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
+        exec.scheduleAtFixedRate(new Runnable() {
+               public void run() {
+                    grid.moveGhost(ghost);
+               }
+           }, 0, 250, TimeUnit.MILLISECONDS);
     }
 
     public static void main(String[] args) {
