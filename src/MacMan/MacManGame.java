@@ -76,9 +76,9 @@ public class MacManGame {
             "C", "C", "C", "C", "C", "C", "B" };
         maze[10] = new String[] { "B", "C", "C", "B", "C", "B", "C", "C", "B", "B", "C", "C", "C", "C", "C", "B", "B",
             "C", "C", "C", "B", "B", "B", "B" };
-        maze[11] = new String[] { "B", "C", "C", "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B", "B",
+        maze[11] = new String[] { "B", "B", "C", "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B", "B",
             "C", "C", "C", "B", "", "", "" };
-        maze[12] = new String[] { "B", "C", "C", "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B", "B",
+        maze[12] = new String[] { "B", "B", "C", "B", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "C", "B", "B",
             "C", "C", "C", "B", "", "", "" };
         maze[13] = new String[] { "B", "C", "C", "B", "C", "B", "C", "C", "B", "B", "C", "C", "C", "C", "C", "B", "B",
             "C", "C", "C", "B", "B", "B", "B" };
