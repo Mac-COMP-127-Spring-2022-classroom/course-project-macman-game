@@ -10,7 +10,6 @@ public class Cell {
     private boolean isTraversable;
     private Coin coin;
     private Player player;
-    private Ghost ghost;
 
     public Cell(double size) {
         graphics = new GraphicsGroup();
@@ -28,7 +27,7 @@ public class Cell {
     }
 
     public boolean isInBounds(Point point) {
-        return this.getGraphics().testHit(point.getX(), point.getY());
+        return getGraphics().testHit(point.getX(), point.getY());
     }
 
     public double getSize() {
@@ -41,43 +40,42 @@ public class Cell {
 
     public void addGraphics(GraphicsGroup group) {
         group.setCenter(rectangle.getCenter());
-        this.graphics.add(group);
+        graphics.add(group);
     }
 
     public void removeGraphics() {
-        this.graphics.removeAll();
+        graphics.removeAll();
     }
 
     public void removeCoin(){
         if (coin != null) {
-            this.graphics.remove(coin);
+            graphics.remove(coin);
         }
         coin = null;
     }
     
     public void addCoin(double size){
         coin = new Coin(size / 6, size / 6);
-        this.addGraphics(coin);
+        addGraphics(coin);
     }
     
     public void removePlayer() {
         if (player != null) {
-            this.graphics.remove(player);
+            graphics.remove(player);
         }
-        this.player = null;
+        player = null;
     }
     
     public void addPlayer(Player player) {
         this.player = player;
-        this.addGraphics(player);
+        addGraphics(player);
     }
 
-    public void removeGhost() {
+    public void removeGhost(Ghost ghost) {
         graphics.remove(ghost);
     }
     
     public void addGhost(Ghost ghost) {
-        this.ghost = ghost;
-        this.addGraphics(ghost);
+        addGraphics(ghost);
     }
 }

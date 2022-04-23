@@ -1,5 +1,7 @@
 package macman;
 
+import java.util.Random;
+
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Image;
 
@@ -7,6 +9,9 @@ public class Ghost extends GraphicsGroup {
     private Image ghostIcon;
     private int ghostRow;
     private int ghostCol;
+    private int direction;
+    private Random random = new Random();
+
 
     public Ghost(double ghostWidth, double ghostHeight, String ghostName, int ghostRow, int ghostCol) {
         super();
@@ -15,6 +20,7 @@ public class Ghost extends GraphicsGroup {
         ghostIcon.setMaxHeight(ghostHeight);
         this.ghostRow = ghostRow;
         this.ghostCol = ghostCol;
+        direction = chooseRandomDirection();
 
         add(ghostIcon);
     }
@@ -33,5 +39,17 @@ public class Ghost extends GraphicsGroup {
 
     public void setGhostCol(int column) {
         ghostCol = column;
+    }
+
+    public int getGhostDirection() {
+        return direction;
+    }
+    public void setGhostDirection(int newDirection) {
+        direction = newDirection;
+    }
+
+    public int chooseRandomDirection() {
+        direction = random.nextInt(4);
+        return direction;
     }
 }

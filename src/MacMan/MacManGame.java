@@ -105,10 +105,10 @@ public class MacManGame {
     }
 
     private void createGhosts() {
-        blinky = new Ghost(20, 20, "blinky", 10, 10);
-        pinky = new Ghost(20, 20, "pinky", 9, 10);
-        inky = new Ghost(20, 20, "inky", 8, 10);
-        clyde = new Ghost(20, 20, "clyde", 7, 10);
+        blinky = new Ghost(20, 20, "blinky", 1, 1);
+        pinky = new Ghost(20, 20, "pinky", 1, 22);
+        inky = new Ghost(20, 20, "inky", 22, 1);
+        clyde = new Ghost(20, 20, "clyde", 22, 22);
     }
 
     public static void main(String[] args) {
