@@ -1,6 +1,9 @@
 package macman;
 
 import edu.macalester.graphics.GraphicsGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Grid extends GraphicsGroup {
@@ -10,19 +13,17 @@ public class Grid extends GraphicsGroup {
     private Player player;
     private int playerRow = 11;
     private int playerCol = 11;
-    private int ghostRow = 10; // refactor here to be applicable to all ghosts
-    private int ghostCol = 10;
-    private Ghost blinky, pinky, inky, clyde;
     private Random random;
     private int direction;
+    private Ghost blinky, pinky, inky, clyde;
+    private List<Ghost> ghosts;
 
     private final int DIRECTION_UP = 0;
     private final int DIRECTION_DOWN = 1;
     private final int DIRECTION_LEFT = 2;
     private final int DIRECTION_RIGHT = 3;
 
-    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, Ghost blinky, Ghost pinky,
-        Ghost inky, Ghost clyde) {
+    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, Ghost blinky, Ghost pinky, Ghost inky, Ghost clyde) {
         this.numRows = numRows;
         this.numCols = numCols;
         this.size = size;
@@ -31,8 +32,16 @@ public class Grid extends GraphicsGroup {
         this.pinky = pinky;
         this.inky = inky;
         this.clyde = clyde;
+        addGhosts();
         createGrid(maze);
+    }
 
+    public void addGhosts() {
+        ghosts = new ArrayList<>();
+        ghosts.add(blinky);
+        ghosts.add(pinky);
+        ghosts.add(inky);
+        ghosts.add(clyde);
     }
 
     public void createGrid(String[][] maze) {
@@ -53,10 +62,10 @@ public class Grid extends GraphicsGroup {
             }
         }
         cells[playerRow][playerCol].addPlayer(player);
-        cells[10][10].addGhost(blinky);
-        cells[9][10].addGhost(pinky);
-        cells[8][10].addGhost(inky);
-        cells[7][10].addGhost(clyde);
+        for (Ghost ghost : ghosts) {
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
+            chooseRandomDirection();   
+        }
     }
 
     private void movePlayer(int row, int col) {
@@ -64,7 +73,6 @@ public class Grid extends GraphicsGroup {
             // Pac-Man off screen
         } else if (!cells[row][col].getTraversable()) {
             // hit wall
-            System.out.println("HIT WALL");
         } else {
             erase();
 
@@ -100,24 +108,24 @@ public class Grid extends GraphicsGroup {
     // moves ghost in the randomly generated direction
     public void moveGhost(Ghost ghost) {
         if (direction == DIRECTION_DOWN && canGhostMove(ghost)) {
-            cells[ghostRow][ghostCol].removeGhost();
-            ghostCol = ghostCol + 1;
-            cells[ghostRow][ghostCol].addGhost(ghost);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost();
+            ghost.setGhostCol(ghost.getGhostCol() + 1);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
         }
         if (direction == DIRECTION_UP && canGhostMove(ghost)) {
-            cells[ghostRow][ghostCol].removeGhost();
-            ghostCol = ghostCol - 1;
-            cells[ghostRow][ghostCol].addGhost(ghost);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost();
+            ghost.setGhostCol(ghost.getGhostCol() - 1);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
         }
         if (direction == DIRECTION_LEFT && canGhostMove(ghost)) {
-            cells[ghostRow][ghostCol].removeGhost();
-            ghostRow = ghostRow - 1;
-            cells[ghostRow][ghostCol].addGhost(ghost);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost();
+            ghost.setGhostRow(ghost.getGhostRow() - 1);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
         }
         if (direction == DIRECTION_RIGHT && canGhostMove(ghost)) {
-            cells[ghostRow][ghostCol].removeGhost();
-            ghostRow = ghostRow + 1;
-            cells[ghostRow][ghostCol].addGhost(ghost);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost();
+            ghost.setGhostRow(ghost.getGhostRow() + 1);
+            cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
         }
         else {
             changeGhostDirection(ghost);
@@ -126,13 +134,13 @@ public class Grid extends GraphicsGroup {
 
     // returns false if there is a wall one cell in front in the ghost's current direction
     private boolean canGhostMove(Ghost ghost) {
-        if (direction == DIRECTION_RIGHT && !cells[ghostRow + 1][ghostCol].getTraversable()) {
+        if (direction == DIRECTION_RIGHT && !cells[ghost.getGhostRow() + 1][ghost.getGhostCol()].getTraversable()) {
             return false;
-        } else if (direction == DIRECTION_UP && !cells[ghostRow][ghostCol - 1].getTraversable()) {
+        } else if (direction == DIRECTION_UP && !cells[ghost.getGhostRow()][ghost.getGhostCol() - 1].getTraversable()) {
             return false;
-        } else if (direction == DIRECTION_LEFT && !cells[ghostRow - 1][ghostCol].getTraversable()) {
+        } else if (direction == DIRECTION_LEFT && !cells[ghost.getGhostRow() - 1][ghost.getGhostCol()].getTraversable()) {
             return false;
-        } else if (direction == DIRECTION_DOWN && !cells[ghostRow][ghostCol + 1].getTraversable()) {
+        } else if (direction == DIRECTION_DOWN && !cells[ghost.getGhostRow()][ghost.getGhostCol() + 1].getTraversable()) {
             return false;
         }
         else {

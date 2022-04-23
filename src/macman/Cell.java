@@ -73,10 +73,7 @@ public class Cell {
     }
 
     public void removeGhost() {
-        if (ghost != null) {
-            this.graphics.remove(ghost);
-        }
-        this.ghost = null;
+        graphics.remove(ghost);
     }
     
     public void addGhost(Ghost ghost) {

@@ -1,8 +1,6 @@
 package macman;
 
 import java.awt.Color;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import edu.macalester.graphics.CanvasWindow;
 
@@ -14,9 +12,11 @@ public class MacManGame {
     private String[][] maze;
     private Player player;
     private Ghost blinky, pinky, inky, clyde;
+    private int tracker = 0;
+
 
     public MacManGame() {
-        canvas = new CanvasWindow("mac-man", CANVAS_WIDTH, CANVAS_HEIGHT);
+        canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
         settingUpGame();
         player = new Player(20, 20);
@@ -33,13 +33,17 @@ public class MacManGame {
             } else if (event.getKey().toString() == "DOWN_ARROW") {
                 grid.movePlayerDown();
             }
-            System.out.println("KEY DOWN");
         });
 
-        animateGhost(blinky);
-        // animateGhost(pinky);
-        // animateGhost(inky);
-        // animateGhost(clyde);
+        canvas.animate(() -> {
+            if (tracker % 17 == 0) {
+                grid.moveGhost(blinky);
+                grid.moveGhost(pinky);
+                grid.moveGhost(inky);
+                grid.moveGhost(clyde);
+            }
+            tracker++;
+        });
     }
 
     private void settingUpGame() {
@@ -101,22 +105,10 @@ public class MacManGame {
     }
 
     private void createGhosts() {
-        blinky = new Ghost(20, 20, "blinky");
-        pinky = new Ghost(20, 20, "pinky");
-        inky = new Ghost(20, 20, "inky");
-        clyde = new Ghost(20, 20, "clyde");
-    }
-
-    private void animateGhost(Ghost ghost) {
-        grid.chooseRandomDirection();
-        // need to find a better way to make the ghost move continously at a fixed rate. maybe use streams???
-        // got this code from https://stackoverflow.com/questions/11416242/how-to-repeatedly-call-a-function-after-a-certain-amount-of-time
-        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-        exec.scheduleAtFixedRate(new Runnable() {
-               public void run() {
-                    grid.moveGhost(ghost);
-               }
-           }, 0, 250, TimeUnit.MILLISECONDS);
+        blinky = new Ghost(20, 20, "blinky", 10, 10);
+        pinky = new Ghost(20, 20, "pinky", 9, 10);
+        inky = new Ghost(20, 20, "inky", 8, 10);
+        clyde = new Ghost(20, 20, "clyde", 7, 10);
     }
 
     public static void main(String[] args) {
