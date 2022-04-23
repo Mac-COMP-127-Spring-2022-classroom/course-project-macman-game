@@ -12,7 +12,6 @@ public class Grid extends GraphicsGroup {
     private Player player;
     private int playerRow = 11;
     private int playerCol = 11;
-    // private int direction;
     private Ghost blinky, pinky, inky, clyde;
     private List<Ghost> ghosts;
 
