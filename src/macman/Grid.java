@@ -13,7 +13,7 @@ public class Grid extends GraphicsGroup {
     private int playerRow = 11;
     private int playerCol = 11;
     private Ghost blinky, pinky, inky, clyde;
-    private List<Ghost> ghosts;
+    private List<Ghost> ghosts = new ArrayList<>();
 
     private final int DIRECTION_UP = 0;
     private final int DIRECTION_DOWN = 1;
@@ -34,7 +34,6 @@ public class Grid extends GraphicsGroup {
     }
 
     public void addGhosts() {
-        ghosts = new ArrayList<>();
         ghosts.add(blinky);
         ghosts.add(pinky);
         ghosts.add(inky);
@@ -148,19 +147,19 @@ public class Grid extends GraphicsGroup {
 
     // if the ghost can't move, changes the direction of the ghost
     private void changeGhostDirection(Ghost ghost) {
-        if (ghost.getGhostDirection() == DIRECTION_RIGHT && !canGhostMove(ghost)) {
+        if (ghost.getGhostDirection() == DIRECTION_RIGHT) {
             while (ghost.getGhostDirection() == DIRECTION_RIGHT) {
                 ghost.chooseRandomDirection();
             }
-        } if (ghost.getGhostDirection() == DIRECTION_UP && !canGhostMove(ghost)) {
+        } if (ghost.getGhostDirection() == DIRECTION_UP) {
             while (ghost.getGhostDirection() == DIRECTION_UP) {
                 ghost.chooseRandomDirection();
             }        
-        } if (ghost.getGhostDirection() == DIRECTION_LEFT && !canGhostMove(ghost)) {
+        } if (ghost.getGhostDirection() == DIRECTION_LEFT) {
             while (ghost.getGhostDirection() == DIRECTION_LEFT) {
                 ghost.chooseRandomDirection();
             }        
-        } if (ghost.getGhostDirection() == DIRECTION_DOWN && !canGhostMove(ghost)) {
+        } if (ghost.getGhostDirection() == DIRECTION_DOWN) {
             while (ghost.getGhostDirection() == DIRECTION_DOWN) {
                 ghost.chooseRandomDirection();
             }    
