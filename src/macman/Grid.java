@@ -64,6 +64,15 @@ public class Grid extends GraphicsGroup {
         }
     }
 
+    public void playerGhostInteraction() {
+        for (Ghost ghost : ghosts) {
+            if (cells[playerRow][playerCol] == cells[ghost.getGhostRow()][ghost.getGhostCol()]) {
+                System.out.println("HIT GHOST");
+                player.setNumOfLives(player.getNumOfLives() - 1);
+            }
+        }
+    }
+
     private void movePlayer(int row, int col) {
         if (row >= numRows || col >= numCols) {
             // Pac-Man off screen
@@ -87,18 +96,22 @@ public class Grid extends GraphicsGroup {
 
     public void movePlayerRight() {
         movePlayer(playerRow + 1, playerCol);
+        playerGhostInteraction();
     }
 
     public void movePlayerLeft() {
         movePlayer(playerRow - 1, playerCol);
+        playerGhostInteraction();
     }
 
     public void movePlayerDown() {
         movePlayer(playerRow, playerCol + 1);
+        playerGhostInteraction();
     }
 
     public void movePlayerUp() {
         movePlayer(playerRow, playerCol - 1);
+        playerGhostInteraction();
     }
 
     // moves ghost in the randomly generated direction

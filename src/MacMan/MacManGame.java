@@ -3,23 +3,26 @@ package macman;
 import java.awt.Color;
 
 import edu.macalester.graphics.CanvasWindow;
+import edu.macalester.graphics.FontStyle;
+import edu.macalester.graphics.GraphicsText;
 
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
-    private static final int CANVAS_HEIGHT = 720;
+    private static final int CANVAS_HEIGHT = 750;
     private Grid grid;
     private CanvasWindow canvas;
     private String[][] maze;
     private Player player;
     private Ghost blinky, pinky, inky, clyde;
     private int tracker = 0;
+    private GraphicsText gameStatus;
 
 
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
-        settingUpGame();
         player = new Player(20, 20);
+        settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
         canvas.add(grid);
 
@@ -49,6 +52,7 @@ public class MacManGame {
     private void settingUpGame() {
         generateMaze();
         createGhosts();
+        createGameStatusLabel();
         canvas.draw();
     }
 
@@ -85,6 +89,25 @@ public class MacManGame {
         pinky = new Ghost(20, 20, "pinky", 3, 20);
         inky = new Ghost(20, 20, "inky", 20, 3);
         clyde = new Ghost(20, 20, "clyde", 22, 22);
+    }
+
+    private void createGameStatusLabel() {
+        gameStatus = new GraphicsText();
+        gameStatus.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
+        gameStatus.setFillColor(Color.GRAY);
+        gameStatus.setText(player.getNumOfLives() + " Lives Left");
+        gameStatus.setPosition(canvas.getWidth() * 0.8, canvas.getHeight() * 0.99);
+        canvas.add(gameStatus);
+    }
+
+    public void changeLivesStatus() {
+        if (player.getNumOfLives() == 0) {
+            gameStatus.setText("YOU LOST");
+        } else if (player.getNumOfLives() == 1) {
+            gameStatus.setText(player.getNumOfLives() + " Life Left");
+        } else if (player.getNumOfLives() == 2) {
+            gameStatus.setText(player.getNumOfLives() + " Lives Left");
+        }
     }
 
     public static void main(String[] args) {
