@@ -16,12 +16,14 @@ public class MacManGame {
     private Ghost blinky, pinky, inky, clyde;
     private int tracker = 0;
     private GraphicsText gameStatus;
+    private int numOfLives;
 
 
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
         player = new Player(20, 20);
+        numOfLives = 3;
         settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
         canvas.add(grid);
@@ -47,6 +49,8 @@ public class MacManGame {
             }
             tracker++;
         });
+
+        updateNumOfLives();
     }
 
     private void settingUpGame() {
@@ -95,18 +99,27 @@ public class MacManGame {
         gameStatus = new GraphicsText();
         gameStatus.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
         gameStatus.setFillColor(Color.GRAY);
-        gameStatus.setText(player.getNumOfLives() + " Lives Left");
+        gameStatus.setText(numOfLives + " Lives Left");
         gameStatus.setPosition(canvas.getWidth() * 0.8, canvas.getHeight() * 0.99);
         canvas.add(gameStatus);
     }
 
+    public void updateNumOfLives() {
+        if (grid.playerGhostInteraction()) {
+            numOfLives--;
+            System.out.println(numOfLives);
+            changeLivesStatus();
+            canvas.draw();
+        }
+    }
+
     public void changeLivesStatus() {
-        if (player.getNumOfLives() == 0) {
+        if (numOfLives == 0) {
             gameStatus.setText("YOU LOST");
-        } else if (player.getNumOfLives() == 1) {
-            gameStatus.setText(player.getNumOfLives() + " Life Left");
-        } else if (player.getNumOfLives() == 2) {
-            gameStatus.setText(player.getNumOfLives() + " Lives Left");
+        } else if (numOfLives == 1) {
+            gameStatus.setText(numOfLives + " Life Left");
+        } else if (numOfLives == 2) {
+            gameStatus.setText(numOfLives + " Lives Left");
         }
     }
 
