@@ -9,7 +9,6 @@ public class Grid extends GraphicsGroup {
     protected int numRows, numCols;
     protected double size;
     protected Cell[][] cells;
-    private Cell cell;
     private Player player;
     private int playerRow = 11;
     private int playerCol = 11;
@@ -77,7 +76,6 @@ public class Grid extends GraphicsGroup {
                 playerRow = 11;
                 playerCol = 11;
                 cells[playerRow][playerCol].addPlayer(player);
-                System.out.println("HIT GHOST");
                 return true;
             }
         }
@@ -90,7 +88,7 @@ public class Grid extends GraphicsGroup {
         } else if (!cells[row][col].getTraversable()) {
             // hit wall
         } else {
-            erase();
+            playerCoinInteraction();
 
             playerCol = col;
             playerRow = row;
@@ -98,7 +96,7 @@ public class Grid extends GraphicsGroup {
         }
     }
 
-    public void erase() {
+    public void playerCoinInteraction() {
         if (cells[playerRow][playerCol].getGraphics() != null) {
             cells[playerRow][playerCol].removeCoin();
         }
