@@ -52,7 +52,6 @@ public class MacManGame {
             updateNumOfLives();
         });
 
-        updateNumOfLives();
     }
 
     private void settingUpGame() {
@@ -109,20 +108,22 @@ public class MacManGame {
     public void updateNumOfLives() {
         if (grid.playerGhostInteraction()) {
             numOfLives--;
-            gameStatus.setText(numOfLives + " Lives Left");
-            System.out.println(numOfLives);
             changeLivesStatus();
-            canvas.draw();
         }
     }
 
     public void changeLivesStatus() {
         if (numOfLives == 0) {
-            gameStatus.setText("YOU LOST");
-        } else if (numOfLives == 1) {
+            gameStatus.setText("YOU LOSE");
+            gameStatus.setPosition(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+            gameStatus.setFontSize(18);
+            canvas.draw();
+            canvas.pause(3000);
+            canvas.closeWindow();
+        } else if (numOfLives > 0) {
             gameStatus.setText(numOfLives + " Life Left");
-        } else if (numOfLives == 2) {
-            gameStatus.setText(numOfLives + " Lives Left");
+            canvas.draw();
+            canvas.pause(3000);
         }
     }
 

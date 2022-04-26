@@ -9,6 +9,7 @@ public class Grid extends GraphicsGroup {
     protected int numRows, numCols;
     protected double size;
     protected Cell[][] cells;
+    private Cell cell;
     private Player player;
     private int playerRow = 11;
     private int playerCol = 11;
@@ -72,10 +73,12 @@ public class Grid extends GraphicsGroup {
     public boolean playerGhostInteraction() {
         for (Ghost ghost : ghosts) {
             if (cells[playerRow][playerCol] == cells[ghost.getGhostRow()][ghost.getGhostCol()]) {
+                cells[playerRow][playerCol].removePlayer();
+                playerRow = 11;
+                playerCol = 11;
+                cells[playerRow][playerCol].addPlayer(player);
                 System.out.println("HIT GHOST");
                 return true;
-                // player.setNumOfLives(player.getNumOfLives() - 1);
-                // System.out.println(player.getNumOfLives());
             }
         }
         return false;
@@ -104,22 +107,18 @@ public class Grid extends GraphicsGroup {
 
     public void movePlayerRight() {
         movePlayer(playerRow + 1, playerCol);
-        playerGhostInteraction();
     }
 
     public void movePlayerLeft() {
         movePlayer(playerRow - 1, playerCol);
-        playerGhostInteraction();
     }
 
     public void movePlayerDown() {
         movePlayer(playerRow, playerCol + 1);
-        playerGhostInteraction();
     }
 
     public void movePlayerUp() {
         movePlayer(playerRow, playerCol - 1);
-        playerGhostInteraction();
     }
 
     // moves ghost in the randomly generated direction
@@ -131,25 +130,21 @@ public class Grid extends GraphicsGroup {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostCol(ghost.getGhostCol() + 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-                playerGhostInteraction();
             }
             else if (ghost.getGhostDirection() == DIRECTION_UP) {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostCol(ghost.getGhostCol() - 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-                playerGhostInteraction();
             }
             else if (ghost.getGhostDirection() == DIRECTION_LEFT) {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostRow(ghost.getGhostRow() - 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-                playerGhostInteraction();
             }
             else if (ghost.getGhostDirection() == DIRECTION_RIGHT) {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostRow(ghost.getGhostRow() + 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-                playerGhostInteraction();
             }
         }
     }
