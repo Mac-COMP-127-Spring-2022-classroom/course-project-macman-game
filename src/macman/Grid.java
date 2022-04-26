@@ -33,14 +33,14 @@ public class Grid extends GraphicsGroup {
         createGrid(maze);
     }
 
-    public void addGhosts() {
+    private void addGhosts() {
         ghosts.add(blinky);
         ghosts.add(pinky);
         ghosts.add(inky);
         ghosts.add(clyde);
     }
 
-    public void createGrid(String[][] maze) {
+    private void createGrid(String[][] maze) {
         cells = new Cell[numRows][numCols];
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
@@ -61,7 +61,7 @@ public class Grid extends GraphicsGroup {
     }
 
     // adds ghost and player to grid
-    public void addtoGrid() {
+    private void addtoGrid() {
         cells[playerRow][playerCol].addPlayer(player);
         for (Ghost ghost : ghosts) {
             cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
@@ -96,7 +96,7 @@ public class Grid extends GraphicsGroup {
         }
     }
 
-    public void playerCoinInteraction() {
+    private void playerCoinInteraction() {
         if (cells[playerRow][playerCol].getGraphics() != null) {
             cells[playerRow][playerCol].removeCoin();
         }

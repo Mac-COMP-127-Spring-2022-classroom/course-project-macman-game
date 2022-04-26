@@ -102,14 +102,14 @@ public class MacManGame {
         canvas.add(gameStatus);
     }
 
-    public void updateNumOfLives() {
+    private void updateNumOfLives() {
         if (grid.playerGhostInteraction()) {
             player.setNumOfLives(player.getNumOfLives() - 1);
             changeLivesStatus();
         }
     }
 
-    public void changeLivesStatus() {
+    private void changeLivesStatus() {
         if (player.getNumOfLives() == 0) {
             gameStatus.setText("YOU LOSE");
             canvas.draw();

@@ -11,6 +11,5 @@ public class Wall extends GraphicsGroup {
         this.add(wall);
         wall.setFillColor(Color.BLUE);
         wall.setStrokeColor(Color.ORANGE);
-
     }
 }
