@@ -27,6 +27,7 @@ public class MacManGame {
         settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
         canvas.add(grid);
+        createGameStatusLabel();
 
         canvas.onKeyDown(event -> {
             if (event.getKey().toString() == "RIGHT_ARROW") {
@@ -48,6 +49,7 @@ public class MacManGame {
                 grid.moveGhost(clyde);
             }
             tracker++;
+            updateNumOfLives();
         });
 
         updateNumOfLives();
@@ -56,7 +58,6 @@ public class MacManGame {
     private void settingUpGame() {
         generateMaze();
         createGhosts();
-        createGameStatusLabel();
         canvas.draw();
     }
 
@@ -100,6 +101,7 @@ public class MacManGame {
         gameStatus.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
         gameStatus.setFillColor(Color.GRAY);
         gameStatus.setText(numOfLives + " Lives Left");
+        updateNumOfLives();
         gameStatus.setPosition(canvas.getWidth() * 0.8, canvas.getHeight() * 0.99);
         canvas.add(gameStatus);
     }
@@ -107,6 +109,7 @@ public class MacManGame {
     public void updateNumOfLives() {
         if (grid.playerGhostInteraction()) {
             numOfLives--;
+            gameStatus.setText(numOfLives + " Lives Left");
             System.out.println(numOfLives);
             changeLivesStatus();
             canvas.draw();
