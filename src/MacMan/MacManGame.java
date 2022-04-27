@@ -16,6 +16,8 @@ public class MacManGame {
     private Ghost blinky, pinky, inky, clyde;
     private int tracker = 0;
     private GraphicsText gameStatus;
+    private GraphicsText coinStatus;
+    private int numOfCoins = 20;
 
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -25,6 +27,7 @@ public class MacManGame {
         grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
         canvas.add(grid);
         createGameStatusLabel();
+        createCoinStatusLabel();
 
         canvas.onKeyDown(event -> {
             if (event.getKey().toString() == "RIGHT_ARROW") {
@@ -39,7 +42,7 @@ public class MacManGame {
         });
 
         canvas.animate(() -> {
-            if (tracker % 17 == 0) {
+            if (tracker % 10 == 0) {
                 grid.moveGhost(blinky);
                 grid.moveGhost(pinky);
                 grid.moveGhost(inky);
@@ -47,6 +50,7 @@ public class MacManGame {
             }
             tracker++;
             updateNumOfLives();
+            updateNumOfCoins();
         });
 
     }
@@ -95,14 +99,29 @@ public class MacManGame {
     private void createGameStatusLabel() {
         gameStatus = new GraphicsText();
         gameStatus.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
-        gameStatus.setFillColor(Color.GRAY);
+        gameStatus.setFillColor(Color.ORANGE);
         gameStatus.setText("Lives Left: " + player.getNumOfLives());
-        updateNumOfLives();
         gameStatus.setPosition(canvas.getWidth() * 0.8, canvas.getHeight() * 0.99);
         canvas.add(gameStatus);
     }
 
-    private void updateNumOfLives() {
+    private void createCoinStatusLabel() {
+        coinStatus = new GraphicsText();
+        coinStatus.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
+        coinStatus.setFillColor(Color.ORANGE);
+        coinStatus.setText("Coins Left: " + numOfCoins);
+        coinStatus.setPosition(canvas.getWidth() * 0.02, canvas.getHeight() * 0.99);
+        canvas.add(coinStatus);
+    }
+
+    private void updateNumOfCoins() {
+        if (grid.playerCoinInteraction()) {
+            numOfCoins--;
+            coinStatus.setText("Coins Left: " + numOfCoins);
+        }
+    }
+
+    public void updateNumOfLives() {
         if (grid.playerGhostInteraction()) {
             player.setNumOfLives(player.getNumOfLives() - 1);
             changeLivesStatus();
@@ -121,6 +140,15 @@ public class MacManGame {
             canvas.pause(3000);
         }
     }
+
+    // public void gameWon() {
+    //     if (player.getNumOfLives() > 0 && ) {
+    //         gameStatus.setText("YOU WIN");
+    //         canvas.draw();
+    //         canvas.pause(3000);
+    //         canvas.closeWindow();
+    //     }
+    // }
 
     public static void main(String[] args) {
         new MacManGame();

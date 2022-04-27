@@ -89,6 +89,7 @@ public class Grid extends GraphicsGroup {
             // hit wall
         } else {
             playerCoinInteraction();
+            cells[playerRow][playerCol].removePlayer();
 
             playerCol = col;
             playerRow = row;
@@ -96,11 +97,12 @@ public class Grid extends GraphicsGroup {
         }
     }
 
-    private void playerCoinInteraction() {
+    public boolean playerCoinInteraction() {
         if (cells[playerRow][playerCol].getGraphics() != null) {
             cells[playerRow][playerCol].removeCoin();
+            return true;
         }
-        cells[playerRow][playerCol].removePlayer();
+        return false;
     }
 
     public void movePlayerRight() {
