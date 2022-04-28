@@ -118,6 +118,7 @@ public class MacManGame {
         if (grid.playerCoinInteraction()) {
             numOfCoins--;
             coinStatus.setText("Coins Left: " + numOfCoins);
+            gameWon();
         }
     }
 
@@ -141,14 +142,14 @@ public class MacManGame {
         }
     }
 
-    // public void gameWon() {
-    //     if (player.getNumOfLives() > 0 && ) {
-    //         gameStatus.setText("YOU WIN");
-    //         canvas.draw();
-    //         canvas.pause(3000);
-    //         canvas.closeWindow();
-    //     }
-    // }
+    private void gameWon() {
+        if (player.getNumOfLives() > 0 && numOfCoins == 0) {
+            gameStatus.setText("YOU WIN");
+            canvas.draw();
+            canvas.pause(3000);
+            canvas.closeWindow();
+        }
+    }
 
     public static void main(String[] args) {
         new MacManGame();

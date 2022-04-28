@@ -98,8 +98,7 @@ public class Grid extends GraphicsGroup {
     }
 
     public boolean playerCoinInteraction() {
-        if (cells[playerRow][playerCol].getGraphics() != null) {
-            cells[playerRow][playerCol].removeCoin();
+        if (cells[playerRow][playerCol].removeCoin()) {
             return true;
         }
         return false;

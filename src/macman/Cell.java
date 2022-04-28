@@ -47,11 +47,13 @@ public class Cell {
         graphics.removeAll();
     }
 
-    public void removeCoin(){
+    public boolean removeCoin(){
         if (coin != null) {
             graphics.remove(coin);
+            coin = null;
+            return true;
         }
-        coin = null;
+        return false;
     }
     
     public void addCoin(double size){

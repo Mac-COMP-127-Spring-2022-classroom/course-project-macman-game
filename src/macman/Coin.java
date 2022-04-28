@@ -7,6 +7,7 @@ import java.awt.Color;
 
 public class Coin extends GraphicsGroup {
     private Ellipse coin;
+    // private int numOfCoins = 20;
     
     public Coin(double ballWidth, double ballHeight) {
         super();
@@ -15,4 +16,10 @@ public class Coin extends GraphicsGroup {
         coin.setStrokeColor(Color.GREEN);
         this.add(coin);
     }
+    // public int getCoins() {
+    //     return numOfCoins;
+    // }
+    // public void setCoins(int coin) {
+    //     numOfCoins = coin;
+    // }
 }
