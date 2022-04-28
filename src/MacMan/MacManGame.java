@@ -17,7 +17,7 @@ public class MacManGame {
     private int tracker = 0;
     private GraphicsText gameStatus;
     private GraphicsText coinStatus;
-    private int numOfCoins = 20;
+    private int numOfCoins = 310;
 
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
