@@ -30,8 +30,6 @@ public class MacManGame {
         settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, ghosts);
         canvas.add(grid);
-        createGameStatusLabel();
-        createCoinStatusLabel();
 
         canvas.onKeyDown(event -> {
             if (event.getKey().toString() == "RIGHT_ARROW") {
@@ -47,10 +45,9 @@ public class MacManGame {
 
         canvas.animate(() -> {
             if (tracker % 10 == 0) {
-                grid.moveGhost(blinky);
-                grid.moveGhost(pinky);
-                grid.moveGhost(inky);
-                grid.moveGhost(clyde);
+                for (Ghost ghost : ghosts) {
+                    grid.moveGhost(ghost);
+                }
             }
             tracker++;
             updateNumOfLives();
@@ -62,6 +59,8 @@ public class MacManGame {
     private void settingUpGame() {
         generateMaze();
         createGhosts();
+        createGameStatusLabel();
+        createCoinStatusLabel();
         canvas.draw();
     }
 
@@ -140,14 +139,12 @@ public class MacManGame {
     private void changeLivesStatus() {
         if (player.getNumOfLives() == 0) {
             gameStatus.setText("YOU LOSE");
-            canvas.draw();
-            canvas.pause(3000);
+            pauseGame();
             canvas.closeWindow();
         } else if (player.getNumOfLives() > 0) {
             gameStatus.setText("Lives Left: " + player.getNumOfLives());
             countdownMessage();
-            canvas.draw();
-            canvas.pause(3000);
+            pauseGame();
             canvas.remove(coolDownMessage);
         }
     }
@@ -164,10 +161,14 @@ public class MacManGame {
     private void gameWon() {
         if (player.getNumOfLives() > 0 && numOfCoins == 0) {
             gameStatus.setText("YOU WIN");
-            canvas.draw();
-            canvas.pause(3000);
+            pauseGame();
             canvas.closeWindow();
         }
+    }
+
+    private void pauseGame() {
+        canvas.draw();
+        canvas.pause(3000);
     }
 
     public static void main(String[] args) {
