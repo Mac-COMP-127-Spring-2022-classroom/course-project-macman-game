@@ -1,6 +1,8 @@
 package macman;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
@@ -14,17 +16,19 @@ public class MacManGame {
     private String[][] maze;
     private Player player;
     private Ghost blinky, pinky, inky, clyde;
+    private List<Ghost> ghosts = new ArrayList<>();
     private int tracker = 0;
     private GraphicsText gameStatus;
     private GraphicsText coinStatus;
     private int numOfCoins = 310;
+
 
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
         player = new Player(20, 20);
         settingUpGame();
-        grid = new Grid(24, 24, 30, maze, player, blinky, pinky, inky, clyde);
+        grid = new Grid(24, 24, 30, maze, player, ghosts);
         canvas.add(grid);
         createGameStatusLabel();
         createCoinStatusLabel();
@@ -91,9 +95,13 @@ public class MacManGame {
 
     private void createGhosts() {
         blinky = new Ghost(20, 20, "blinky", 6, 6);
+        ghosts.add(blinky);
         pinky = new Ghost(20, 20, "pinky", 3, 20);
+        ghosts.add(pinky);
         inky = new Ghost(20, 20, "inky", 20, 3);
+        ghosts.add(inky);
         clyde = new Ghost(20, 20, "clyde", 22, 22);
+        ghosts.add(clyde);
     }
 
     private void createGameStatusLabel() {

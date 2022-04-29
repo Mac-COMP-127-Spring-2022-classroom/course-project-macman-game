@@ -12,7 +12,6 @@ public class Grid extends GraphicsGroup {
     private Player player;
     private int playerRow = 11;
     private int playerCol = 11;
-    private Ghost blinky, pinky, inky, clyde;
     private List<Ghost> ghosts = new ArrayList<>();
 
     private final int DIRECTION_UP = 0;
@@ -20,24 +19,13 @@ public class Grid extends GraphicsGroup {
     private final int DIRECTION_LEFT = 2;
     private final int DIRECTION_RIGHT = 3;
 
-    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, Ghost blinky, Ghost pinky, Ghost inky, Ghost clyde) {
+    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, List<Ghost> ghosts) {
         this.numRows = numRows;
         this.numCols = numCols;
         this.size = size;
         this.player = player;
-        this.blinky = blinky;
-        this.pinky = pinky;
-        this.inky = inky;
-        this.clyde = clyde;
-        addGhosts();
+        this.ghosts = ghosts;
         createGrid(maze);
-    }
-
-    private void addGhosts() {
-        ghosts.add(blinky);
-        ghosts.add(pinky);
-        ghosts.add(inky);
-        ghosts.add(clyde);
     }
 
     private void createGrid(String[][] maze) {
