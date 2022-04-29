@@ -3,7 +3,6 @@ package macman;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
@@ -20,6 +19,7 @@ public class MacManGame {
     private int tracker = 0;
     private GraphicsText gameStatus;
     private GraphicsText coinStatus;
+    private GraphicsText coolDownMessage;
     private int numOfCoins = 310;
 
 
@@ -145,9 +145,20 @@ public class MacManGame {
             canvas.closeWindow();
         } else if (player.getNumOfLives() > 0) {
             gameStatus.setText("Lives Left: " + player.getNumOfLives());
+            countdownMessage();
             canvas.draw();
             canvas.pause(3000);
+            canvas.remove(coolDownMessage);
         }
+    }
+
+    private void countdownMessage() {
+        coolDownMessage = new GraphicsText();
+        coolDownMessage.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
+        coolDownMessage.setFillColor(Color.RED);
+        coolDownMessage.setText("Please wait 3 seconds!");
+        coolDownMessage.setPosition(canvas.getWidth() * 0.35, canvas.getHeight() * 0.99);
+        canvas.add(coolDownMessage);
     }
 
     private void gameWon() {
