@@ -6,12 +6,14 @@ import java.util.List;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
+import edu.macalester.graphics.Image;
 
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
     private static final int CANVAS_HEIGHT = 750;
     private Grid grid;
     private CanvasWindow canvas;
+    private Image titleImage;
     private String[][] maze;
     private Player player;
     private Ghost blinky, pinky, inky, clyde;
@@ -26,6 +28,19 @@ public class MacManGame {
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
+        homeScreen();
+        // playingScreen();
+    }
+
+    private void homeScreen() {
+        titleImage = new Image("sprite-icons/title.png");
+        titleImage.setMaxWidth(400);
+        titleImage.setMaxHeight(100);
+        titleImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
+        canvas.add(titleImage);
+    }
+
+    private void playingScreen() {
         player = new Player(20, 20);
         ghosts = new ArrayList<>();
         settingUpGame();
@@ -35,6 +50,11 @@ public class MacManGame {
         createGameStatusLabel();
         createCoinStatusLabel();
 
+        keyControls();
+        animateGhosts();
+    }
+
+    private void keyControls() {
         canvas.onKeyDown(event -> {
             if (event.getKey().toString() == "RIGHT_ARROW") {
                 grid.movePlayerRight();
@@ -46,7 +66,9 @@ public class MacManGame {
                 grid.movePlayerDown();
             }
         });
+    }
 
+    private void animateGhosts() {
         tracker = 0;
         canvas.animate(() -> {
             if (tracker % 10 == 0) {
@@ -57,9 +79,7 @@ public class MacManGame {
             }
             tracker++;
             updateNumOfLives();
-            // updateNumOfCoins();
         });
-
     }
 
     private void settingUpGame() {
