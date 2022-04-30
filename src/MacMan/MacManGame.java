@@ -6,6 +6,7 @@ import java.util.List;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
+import edu.macalester.graphics.events.Key;
 
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
@@ -20,6 +21,7 @@ public class MacManGame {
     private GraphicsText gameStatus;
     private GraphicsText coinStatus;
     private GraphicsText coolDownMessage;
+    private int count = 0;
     private int numOfCoins = 310;
 
 
@@ -30,19 +32,6 @@ public class MacManGame {
         settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, ghosts);
         canvas.add(grid);
-
-        canvas.onKeyDown(event -> {
-            if (event.getKey().toString() == "RIGHT_ARROW") {
-                grid.movePlayerRight();
-            } else if (event.getKey().toString() == "LEFT_ARROW") {
-                grid.movePlayerLeft();
-            } else if (event.getKey().toString() == "UP_ARROW") {
-                grid.movePlayerUp();
-            } else if (event.getKey().toString() == "DOWN_ARROW") {
-                grid.movePlayerDown();
-            }
-        });
-
         canvas.animate(() -> {
             if (tracker % 10 == 0) {
                 for (Ghost ghost : ghosts) {
@@ -50,10 +39,38 @@ public class MacManGame {
                 }
             }
             tracker++;
+            changingPlayerPositions();
             updateNumOfLives();
             updateNumOfCoins();
         });
 
+    }
+    private void changingPlayerPositions() {
+        if (canvas.getKeysPressed().contains(Key.RIGHT_ARROW)) {
+            count++;
+            if (count == 4) {
+                grid.movePlayerRight();
+                count = 0;
+            }
+        } else if (canvas.getKeysPressed().contains(Key.LEFT_ARROW)) {
+            count++;
+            if (count == 4) {
+                grid.movePlayerLeft();
+                count = 0;
+            }
+        } else if (canvas.getKeysPressed().contains(Key.UP_ARROW)) {
+            count++;
+            if (count == 4) {
+                grid.movePlayerUp();
+                count = 0;
+            }
+        } else if (canvas.getKeysPressed().contains(Key.DOWN_ARROW)) {
+            count++;
+            if (count == 4) {
+                grid.movePlayerDown();
+                count = 0;
+            }
+        }
     }
 
     private void settingUpGame() {
