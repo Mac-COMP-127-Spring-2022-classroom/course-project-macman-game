@@ -15,21 +15,23 @@ public class MacManGame {
     private String[][] maze;
     private Player player;
     private Ghost blinky, pinky, inky, clyde;
-    private List<Ghost> ghosts = new ArrayList<>();
-    private int tracker = 0;
+    private List<Ghost> ghosts;
+    private int tracker;
     private GraphicsText gameStatus;
     private GraphicsText coinStatus;
     private GraphicsText coolDownMessage;
-    private int numOfCoins = 310;
+    private int numOfCoins;
 
 
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
         player = new Player(20, 20);
+        ghosts = new ArrayList<>();
         settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, ghosts, this);
         canvas.add(grid);
+        numOfCoins = 310;
         createGameStatusLabel();
         createCoinStatusLabel();
 
@@ -45,6 +47,7 @@ public class MacManGame {
             }
         });
 
+        tracker = 0;
         canvas.animate(() -> {
             if (tracker % 10 == 0) {
                 grid.moveGhost(blinky);

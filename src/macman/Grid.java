@@ -2,7 +2,6 @@ package macman;
 
 import edu.macalester.graphics.GraphicsGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Grid extends GraphicsGroup {
@@ -13,12 +12,12 @@ public class Grid extends GraphicsGroup {
     private Player player;
     private int playerRow = 11;
     private int playerCol = 11;
-    private List<Ghost> ghosts = new ArrayList<>();
+    private List<Ghost> ghosts;
 
-    private final int DIRECTION_UP = 0;
-    private final int DIRECTION_DOWN = 1;
-    private final int DIRECTION_LEFT = 2;
-    private final int DIRECTION_RIGHT = 3;
+    private static final int DIRECTION_UP = 0;
+    private static final int DIRECTION_DOWN = 1;
+    private static final int DIRECTION_LEFT = 2;
+    private static final int DIRECTION_RIGHT = 3;
 
     public Grid(int numRows, int numCols, int size, String[][] maze, Player player, List<Ghost> ghosts, MacManGame game) {
         this.numRows = numRows;

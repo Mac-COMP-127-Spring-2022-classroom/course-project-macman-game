@@ -10,7 +10,7 @@ public class Ghost extends GraphicsGroup {
     private int ghostRow;
     private int ghostCol;
     private int direction;
-    private Random random = new Random();
+    private Random random;
 
 
     public Ghost(double ghostWidth, double ghostHeight, String ghostName, int ghostRow, int ghostCol) {
@@ -20,6 +20,7 @@ public class Ghost extends GraphicsGroup {
         ghostIcon.setMaxHeight(ghostHeight);
         this.ghostRow = ghostRow;
         this.ghostCol = ghostCol;
+        random = new Random();
         direction = chooseRandomDirection();
 
         add(ghostIcon);
