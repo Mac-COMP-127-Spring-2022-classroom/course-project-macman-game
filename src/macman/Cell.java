@@ -1,6 +1,7 @@
 package macman;
 
 import edu.macalester.graphics.GraphicsGroup;
+import edu.macalester.graphics.Point;
 import edu.macalester.graphics.Rectangle;
 
 public class Cell {
@@ -25,6 +26,14 @@ public class Cell {
         return isTraversable;
     }
 
+    public boolean isInBounds(Point point) {
+        return getGraphics().testHit(point.getX(), point.getY());
+    }
+
+    public double getSize() {
+        return rectangle.getWidth();
+    }
+
     public GraphicsGroup getGraphics () {
         return graphics;
     }
@@ -32,6 +41,10 @@ public class Cell {
     public void addGraphics(GraphicsGroup group) {
         group.setCenter(rectangle.getCenter());
         graphics.add(group);
+    }
+
+    public void removeGraphics() {
+        graphics.removeAll();
     }
 
     public boolean removeCoin(){

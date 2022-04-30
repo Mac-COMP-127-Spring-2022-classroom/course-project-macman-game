@@ -45,11 +45,11 @@ public class Grid extends GraphicsGroup {
                 cells[i][j] = cell;
             }
         }
-        addGridElements();
+        addtoGrid();
     }
 
     // adds ghost and player to grid
-    private void addGridElements() {
+    private void addtoGrid() {
         cells[playerRow][playerCol].addPlayer(player);
         for (Ghost ghost : ghosts) {
             cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
