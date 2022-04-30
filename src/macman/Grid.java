@@ -8,6 +8,7 @@ import java.util.List;
 public class Grid extends GraphicsGroup {
     protected int numRows, numCols;
     protected double size;
+    private MacManGame game;
     protected Cell[][] cells;
     private Player player;
     private int playerRow = 11;
@@ -19,12 +20,13 @@ public class Grid extends GraphicsGroup {
     private final int DIRECTION_LEFT = 2;
     private final int DIRECTION_RIGHT = 3;
 
-    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, List<Ghost> ghosts) {
+    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, List<Ghost> ghosts, MacManGame game) {
         this.numRows = numRows;
         this.numCols = numCols;
         this.size = size;
         this.player = player;
         this.ghosts = ghosts;
+        this.game = game;
         createGrid(maze);
     }
 
@@ -76,20 +78,20 @@ public class Grid extends GraphicsGroup {
         } else if (!cells[row][col].getTraversable()) {
             // hit wall
         } else {
-            playerCoinInteraction();
             cells[playerRow][playerCol].removePlayer();
 
             playerCol = col;
             playerRow = row;
             cells[row][col].addPlayer(player);
+            playerCoinInteraction();
+
         }
     }
 
-    public boolean playerCoinInteraction() {
+    public void playerCoinInteraction() {
         if (cells[playerRow][playerCol].removeCoin()) {
-            return true;
+            game.updateNumOfCoins();
         }
-        return false;
     }
 
     public void movePlayerRight() {

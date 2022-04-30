@@ -28,7 +28,7 @@ public class MacManGame {
         canvas.setBackground(Color.BLACK);
         player = new Player(20, 20);
         settingUpGame();
-        grid = new Grid(24, 24, 30, maze, player, ghosts);
+        grid = new Grid(24, 24, 30, maze, player, ghosts, this);
         canvas.add(grid);
         createGameStatusLabel();
         createCoinStatusLabel();
@@ -54,7 +54,7 @@ public class MacManGame {
             }
             tracker++;
             updateNumOfLives();
-            updateNumOfCoins();
+            // updateNumOfCoins();
         });
 
     }
@@ -122,12 +122,10 @@ public class MacManGame {
         canvas.add(coinStatus);
     }
 
-    private void updateNumOfCoins() {
-        if (grid.playerCoinInteraction()) {
-            numOfCoins--;
-            coinStatus.setText("Coins Left: " + numOfCoins);
-            gameWon();
-        }
+    public void updateNumOfCoins() {
+        numOfCoins--;
+        coinStatus.setText("Coins Left: " + numOfCoins);
+        gameWon();
     }
 
     public void updateNumOfLives() {
