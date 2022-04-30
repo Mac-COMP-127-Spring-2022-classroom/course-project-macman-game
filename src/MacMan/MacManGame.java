@@ -7,7 +7,6 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Image;
-import edu.macalester.graphics.ui.Button;
 
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
@@ -130,7 +129,6 @@ public class MacManGame {
         numOfCoins = 310;
         createGameStatusLabel();
         createCoinStatusLabel();
-
         keyControls();
         animateGhosts();
     }
@@ -245,6 +243,7 @@ public class MacManGame {
             canvas.draw();
             canvas.pause(3000);
             canvas.removeAll();
+            creditsScreen();
             homeScreen();
         } else if (player.getNumOfLives() > 0) {
             gameStatus.setText("Lives Left: " + player.getNumOfLives());
@@ -264,12 +263,26 @@ public class MacManGame {
         canvas.add(coolDownMessage);
     }
 
+    private void creditsScreen() {
+        GraphicsText credits = new GraphicsText("CREDITS:\nSarah Sylvester\nArnika Abeysekera");
+        String font = "Times New Roman";
+        int fontSize = 20;
+        credits.setFont(font, FontStyle.PLAIN, fontSize);
+        credits.setFillColor(Color.WHITE);
+        credits.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        canvas.add(credits);
+        canvas.draw();
+        canvas.pause(3000);
+        canvas.removeAll();
+    }
+
     private void gameWon() {
         if (player.getNumOfLives() > 0 && numOfCoins == 0) {
             gameStatus.setText("YOU WIN");
             canvas.draw();
             canvas.pause(3000);
             canvas.removeAll();
+            creditsScreen();
             homeScreen();
         }
     }
