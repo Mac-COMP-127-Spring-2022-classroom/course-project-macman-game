@@ -44,10 +44,17 @@ public class MacManGame {
     }
 
     private void playButton() {
-        Button playButton = new Button("START");
+        customButton playButton = new customButton("START");
         playButton.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
+        GraphicsText text = new GraphicsText("START");
+        String font = "Times New Roman";
+        int fontSize = 20;
+        text.setFont(font, FontStyle.PLAIN, fontSize);
+        text.setFillColor(Color.RED);
+        text.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
         // playButton.(Color.BLACK);
         canvas.add(playButton);
+        canvas.add(text);
         playButton.onClick(() -> {
             canvas.removeAll();
             playingScreen();
