@@ -7,6 +7,7 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Image;
+import edu.macalester.graphics.ui.Button;
 
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
@@ -37,7 +38,18 @@ public class MacManGame {
         titleImage.setMaxWidth(400);
         titleImage.setMaxHeight(100);
         titleImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
+        playButton();
         canvas.add(titleImage);
+    }
+
+    private void playButton() {
+        Button playButton = new Button("START");
+        playButton.setPosition(100, 100);
+        canvas.add(playButton);
+        playButton.onClick(() -> {
+            canvas.removeAll();
+            playingScreen();
+        });
     }
 
     private void playingScreen() {
