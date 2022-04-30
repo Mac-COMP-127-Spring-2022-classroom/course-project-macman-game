@@ -39,17 +39,26 @@ public class MacManGame {
         titleImage.setMaxHeight(100);
         titleImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
         playButton();
+        quitButton();
         canvas.add(titleImage);
     }
 
     private void playButton() {
         Button playButton = new Button("START");
-        playButton.setPosition(100, 100);
+        playButton.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
+        // playButton.(Color.BLACK);
         canvas.add(playButton);
         playButton.onClick(() -> {
             canvas.removeAll();
             playingScreen();
         });
+    }
+
+    private void quitButton() {
+        Button quitButton = new Button("QUIT");
+        quitButton.setCenter(CANVAS_WIDTH / 2 + 100, CANVAS_HEIGHT / 2 + 10);
+        canvas.add(quitButton);
+        quitButton.onClick(() -> canvas.closeWindow());    
     }
 
     private void playingScreen() {
@@ -175,7 +184,8 @@ public class MacManGame {
             gameStatus.setText("YOU LOSE");
             canvas.draw();
             canvas.pause(3000);
-            canvas.closeWindow();
+            canvas.removeAll();
+            homeScreen();
         } else if (player.getNumOfLives() > 0) {
             gameStatus.setText("Lives Left: " + player.getNumOfLives());
             countdownMessage();
@@ -199,7 +209,8 @@ public class MacManGame {
             gameStatus.setText("YOU WIN");
             canvas.draw();
             canvas.pause(3000);
-            canvas.closeWindow();
+            canvas.removeAll();
+            homeScreen();
         }
     }
 
