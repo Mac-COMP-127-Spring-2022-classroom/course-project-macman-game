@@ -11,14 +11,14 @@ import javax.swing.border.LineBorder;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
 
-public class customButton extends EmbeddedSwingComponent {
+public class CustomButton extends EmbeddedSwingComponent {
     private JButton button;
 
-    public customButton(String title) {
+    public CustomButton(String title) {
         this(new JButton(""));
     }
 
-    private customButton(JButton button) {
+    private CustomButton(JButton button) {
         super(button);
         this.button = button;
         button.setFocusable(false);

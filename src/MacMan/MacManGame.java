@@ -40,19 +40,19 @@ public class MacManGame {
         titleImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
         playButton();
         quitButton();
+        playerInstructions();
         canvas.add(titleImage);
     }
 
     private void playButton() {
-        customButton playButton = new customButton("START");
+        CustomButton playButton = new CustomButton("START");
         playButton.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
         GraphicsText text = new GraphicsText("START");
         String font = "Times New Roman";
         int fontSize = 20;
         text.setFont(font, FontStyle.PLAIN, fontSize);
-        text.setFillColor(Color.RED);
+        text.setFillColor(Color.WHITE);
         text.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
-        // playButton.(Color.BLACK);
         canvas.add(playButton);
         canvas.add(text);
         playButton.onClick(() -> {
@@ -62,10 +62,63 @@ public class MacManGame {
     }
 
     private void quitButton() {
-        Button quitButton = new Button("QUIT");
+        CustomButton quitButton = new CustomButton("QUIT");
         quitButton.setCenter(CANVAS_WIDTH / 2 + 100, CANVAS_HEIGHT / 2 + 10);
+        GraphicsText text = new GraphicsText("QUIT");
+        String font = "Times New Roman";
+        int fontSize = 20;
+        text.setFont(font, FontStyle.PLAIN, fontSize);
+        text.setFillColor(Color.WHITE);
+        text.setCenter(CANVAS_WIDTH / 2 + 100, CANVAS_HEIGHT / 2 + 10);
         canvas.add(quitButton);
+        canvas.add(text);
         quitButton.onClick(() -> canvas.closeWindow());    
+    }
+
+    private void playerInstructions() {
+        CustomButton instructionButton = new CustomButton("HOW TO PLAY");
+        instructionButton.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 50);
+        GraphicsText text = new GraphicsText("HOW TO PLAY");
+        String font = "Times New Roman";
+        int fontSize = 20;
+        text.setFont(font, FontStyle.PLAIN, fontSize);
+        text.setFillColor(Color.WHITE);
+        text.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 50);
+        canvas.add(instructionButton);
+        canvas.add(text);
+        instructionButton.onClick(() -> {
+            canvas.removeAll();
+            manualInstructions();
+        });
+    }
+
+    private void manualInstructions() {
+        CustomButton returnButton = new CustomButton("RETURN TO WELCOME SCREEN");
+        returnButton.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 80);
+        GraphicsText returnStatement = new GraphicsText("RETURN TO WELCOME SCREEN");
+        String font = "Times New Roman";
+        int fontSize = 20;
+        returnStatement.setFont(font, FontStyle.PLAIN, fontSize);
+        returnStatement.setFillColor(Color.ORANGE);
+        returnStatement.setCenter(CANVAS_WIDTH / 2 + 5, CANVAS_HEIGHT / 2 + 80);
+        canvas.add(returnButton);
+        canvas.add(returnStatement);
+        returnButton.onClick(() -> {
+            canvas.removeAll();
+            homeScreen();
+        });
+        textInstruct();
+    }
+
+    private void textInstruct() {
+        String font = "Comic Sans";
+        int fontSize = 20;
+        GraphicsText instruction = new GraphicsText("Use your UP, DOWN, RIGHT, and LEFT\narrow keys to move the player!\nTry to collect all of the coins without losing all\nthree of your lives!");
+        instruction.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        instruction.setFont(font, FontStyle.PLAIN, fontSize);
+        instruction.setFillColor(Color.WHITE);
+        instruction.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+        canvas.add(instruction);
     }
 
     private void playingScreen() {
