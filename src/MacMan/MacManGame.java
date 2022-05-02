@@ -239,10 +239,7 @@ public class MacManGame {
 
     private void changeLivesStatus() {
         if (player.getNumOfLives() == 0) {
-            gameStatus.setText("YOU LOSE");
-            canvas.draw();
-            canvas.pause(3000);
-            canvas.removeAll();
+            loseMessage();
             creditsScreen();
             homeScreen();
         } else if (player.getNumOfLives() > 0) {
@@ -278,13 +275,34 @@ public class MacManGame {
 
     private void gameWon() {
         if (player.getNumOfLives() > 0 && numOfCoins == 0) {
-            gameStatus.setText("YOU WIN");
-            canvas.draw();
-            canvas.pause(3000);
-            canvas.removeAll();
+            winMessage();
             creditsScreen();
             homeScreen();
         }
+    }
+
+    private void winMessage() {
+        canvas.removeAll();
+        Image winImage = new Image("sprite-icons/win-message.png");
+        winImage.setMaxWidth(400);
+        winImage.setMaxHeight(100);
+        winImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
+        canvas.add(winImage);
+        canvas.draw();
+        canvas.pause(3000);
+        canvas.removeAll();
+    }
+
+    private void loseMessage() {
+        canvas.removeAll();
+        Image loseImage = new Image("sprite-icons/lose-message.png");
+        loseImage.setMaxWidth(400);
+        loseImage.setMaxHeight(100);
+        loseImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
+        canvas.add(loseImage);
+        canvas.draw();
+        canvas.pause(3000);
+        canvas.removeAll();
     }
 
     public static void main(String[] args) {
