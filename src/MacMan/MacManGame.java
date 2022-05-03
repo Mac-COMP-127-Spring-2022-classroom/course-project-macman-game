@@ -23,6 +23,9 @@ public class MacManGame {
     private GraphicsText coinStatus;
     private GraphicsText coolDownMessage;
     private int numOfCoins;
+    private boolean playingGame;
+    private boolean menuScreen;
+    private boolean endingCredits;
 
 
     public MacManGame() {
@@ -30,8 +33,29 @@ public class MacManGame {
         canvas.setBackground(Color.BLACK);
         homeScreen();
         // playingScreen();
+        // need to move the animate here and call everything once
+        keyControls();
+        canvas.animate(() -> {
+            doOneMethod();
+                
+        });
+        
     }
 
+    private void doOneMethod() {
+        if (playingGame) {
+            // build play game screen once
+            // move ghosts like this
+            if (tracker % 10 == 0) {
+                grid.moveGhost(blinky);
+                grid.moveGhost(pinky);
+                grid.moveGhost(inky);
+                grid.moveGhost(clyde);
+            }
+            tracker++;
+            updateNumOfLives();
+        }
+    }
     private void homeScreen() {
         titleImage = new Image("sprite-icons/title.png");
         titleImage.setMaxWidth(400);
@@ -89,6 +113,8 @@ public class MacManGame {
             canvas.removeAll();
             manualInstructions();
         });
+
+        
     }
 
     private void manualInstructions() {
@@ -129,8 +155,6 @@ public class MacManGame {
         numOfCoins = 310;
         createGameStatusLabel();
         createCoinStatusLabel();
-        keyControls();
-        animateGhosts();
     }
 
     private void keyControls() {
@@ -143,27 +167,31 @@ public class MacManGame {
                 grid.movePlayerUp();
             } else if (event.getKey().toString() == "DOWN_ARROW") {
                 grid.movePlayerDown();
+            } else {
+                return;
             }
+            doOneMethod();
         });
     }
 
-    private void animateGhosts() {
-        tracker = 0;
-        canvas.animate(() -> {
-            if (tracker % 10 == 0) {
-                grid.moveGhost(blinky);
-                grid.moveGhost(pinky);
-                grid.moveGhost(inky);
-                grid.moveGhost(clyde);
-            }
-            tracker++;
-            updateNumOfLives();
-        });
-    }
+    // private void animateGhosts() {
+    //     tracker = 0;
+    //     canvas.animate(() -> {
+    //         if (tracker % 5 == 0) {
+    //             grid.moveGhost(blinky);
+    //             grid.moveGhost(pinky);
+    //             grid.moveGhost(inky);
+    //             grid.moveGhost(clyde);
+    //         }
+    //         tracker++;
+    //         updateNumOfLives();
+    //     });
+    // }
 
     private void settingUpGame() {
         generateMaze();
         createGhosts();
+        playingGame = true;
         canvas.draw();
     }
 
@@ -240,6 +268,7 @@ public class MacManGame {
     private void changeLivesStatus() {
         if (player.getNumOfLives() == 0) {
             loseMessage();
+            playingGame = false;
             creditsScreen();
             homeScreen();
         } else if (player.getNumOfLives() > 0) {
@@ -276,6 +305,7 @@ public class MacManGame {
     private void gameWon() {
         if (player.getNumOfLives() > 0 && numOfCoins == 0) {
             winMessage();
+            playingGame = false;
             creditsScreen();
             homeScreen();
         }
