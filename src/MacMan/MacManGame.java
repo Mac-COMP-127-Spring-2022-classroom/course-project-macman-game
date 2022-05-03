@@ -24,16 +24,11 @@ public class MacManGame {
     private GraphicsText coolDownMessage;
     private int numOfCoins;
     private boolean playingGame;
-    private boolean menuScreen;
-    private boolean endingCredits;
-
 
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
         homeScreen();
-        // playingScreen();
-        // need to move the animate here and call everything once
         keyControls();
         canvas.animate(() -> {
             doOneMethod();
@@ -44,8 +39,6 @@ public class MacManGame {
 
     private void doOneMethod() {
         if (playingGame) {
-            // build play game screen once
-            // move ghosts like this
             if (tracker % 10 == 0) {
                 grid.moveGhost(blinky);
                 grid.moveGhost(pinky);
@@ -56,14 +49,16 @@ public class MacManGame {
             updateNumOfLives();
         }
     }
-    private void homeScreen() {
+    public void homeScreen() {
         titleImage = new Image("sprite-icons/title.png");
         titleImage.setMaxWidth(400);
         titleImage.setMaxHeight(100);
         titleImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
+
         playButton();
         quitButton();
-        playerInstructions();
+        instructionsButton();
+        creditsButton();
         canvas.add(titleImage);
     }
 
@@ -71,7 +66,7 @@ public class MacManGame {
         CustomButton playButton = new CustomButton("START");
         playButton.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
         GraphicsText text = new GraphicsText("START");
-        String font = "Times New Roman";
+        String font = "Impact";
         int fontSize = 20;
         text.setFont(font, FontStyle.PLAIN, fontSize);
         text.setFillColor(Color.WHITE);
@@ -88,7 +83,7 @@ public class MacManGame {
         CustomButton quitButton = new CustomButton("QUIT");
         quitButton.setCenter(CANVAS_WIDTH / 2 + 100, CANVAS_HEIGHT / 2 + 10);
         GraphicsText text = new GraphicsText("QUIT");
-        String font = "Times New Roman";
+        String font = "Impact";
         int fontSize = 20;
         text.setFont(font, FontStyle.PLAIN, fontSize);
         text.setFillColor(Color.WHITE);
@@ -98,11 +93,11 @@ public class MacManGame {
         quitButton.onClick(() -> canvas.closeWindow());    
     }
 
-    private void playerInstructions() {
+    private void instructionsButton() {
         CustomButton instructionButton = new CustomButton("HOW TO PLAY");
         instructionButton.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 50);
         GraphicsText text = new GraphicsText("HOW TO PLAY");
-        String font = "Times New Roman";
+        String font = "Courier New";
         int fontSize = 20;
         text.setFont(font, FontStyle.PLAIN, fontSize);
         text.setFillColor(Color.WHITE);
@@ -113,15 +108,13 @@ public class MacManGame {
             canvas.removeAll();
             manualInstructions();
         });
-
-        
     }
 
     private void manualInstructions() {
         CustomButton returnButton = new CustomButton("RETURN TO WELCOME SCREEN");
         returnButton.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 80);
         GraphicsText returnStatement = new GraphicsText("RETURN TO WELCOME SCREEN");
-        String font = "Times New Roman";
+        String font = "Courier New";
         int fontSize = 20;
         returnStatement.setFont(font, FontStyle.PLAIN, fontSize);
         returnStatement.setFillColor(Color.ORANGE);
@@ -136,7 +129,7 @@ public class MacManGame {
     }
 
     private void textInstruct() {
-        String font = "Comic Sans";
+        String font = "Courier New";
         int fontSize = 20;
         GraphicsText instruction = new GraphicsText("Use your UP, DOWN, RIGHT, and LEFT\narrow keys to move the player!\nTry to collect all of the coins without losing all\nthree of your lives!");
         instruction.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
@@ -146,6 +139,23 @@ public class MacManGame {
         canvas.add(instruction);
     }
 
+    private void creditsButton() {
+        CustomButton creditButton = new CustomButton("CREDITS");
+        creditButton.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 80);
+        GraphicsText creditText = new GraphicsText("CREDITS");
+        String font = "Courier New";
+        int fontSize = 20;
+        creditText.setFont(font, FontStyle.PLAIN, fontSize);
+        creditText.setFillColor(Color.WHITE);
+        creditText.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 80);
+        canvas.add(creditButton);
+        canvas.add(creditText);
+        canvas.add(creditButton);
+        creditButton.onClick(() -> {
+            canvas.removeAll();
+            creditsScreen();
+        });
+    }
     private void playingScreen() {
         player = new Player(20, 20);
         ghosts = new ArrayList<>();
@@ -173,20 +183,6 @@ public class MacManGame {
             doOneMethod();
         });
     }
-
-    // private void animateGhosts() {
-    //     tracker = 0;
-    //     canvas.animate(() -> {
-    //         if (tracker % 5 == 0) {
-    //             grid.moveGhost(blinky);
-    //             grid.moveGhost(pinky);
-    //             grid.moveGhost(inky);
-    //             grid.moveGhost(clyde);
-    //         }
-    //         tracker++;
-    //         updateNumOfLives();
-    //     });
-    // }
 
     private void settingUpGame() {
         generateMaze();
@@ -289,9 +285,9 @@ public class MacManGame {
         canvas.add(coolDownMessage);
     }
 
-    private void creditsScreen() {
-        GraphicsText credits = new GraphicsText("CREDITS:\nSarah Sylvester\nArnika Abeysekera");
-        String font = "Times New Roman";
+    public void creditsScreen() {
+        GraphicsText credits = new GraphicsText("THANK YOU FOR PLAYING!\n\n\n        CREDITS:\n    Sarah Sylvester\n   Arnika Abeysekera");
+        String font = "Courier New";
         int fontSize = 20;
         credits.setFont(font, FontStyle.PLAIN, fontSize);
         credits.setFillColor(Color.WHITE);
@@ -300,6 +296,7 @@ public class MacManGame {
         canvas.draw();
         canvas.pause(3000);
         canvas.removeAll();
+        homeScreen();
     }
 
     private void gameWon() {
