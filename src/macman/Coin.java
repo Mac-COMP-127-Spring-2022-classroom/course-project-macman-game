@@ -7,7 +7,7 @@ import java.awt.Color;
 
 public class Coin extends GraphicsGroup {
     private Ellipse coin;
-    
+
     public Coin(double ballWidth, double ballHeight) {
         super();
         coin = new Ellipse(0, 0, ballWidth, ballHeight);

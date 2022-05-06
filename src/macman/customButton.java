@@ -26,7 +26,7 @@ public class CustomButton extends EmbeddedSwingComponent {
         button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
-        
+
         // Some Windows versions of Java miscompute the button dimensions so the text
         // gets truncated, plus default Swing style on Windows is ugly.
         // We thus do manual styling + manual size computation. The style below brings

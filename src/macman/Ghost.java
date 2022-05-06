@@ -45,6 +45,7 @@ public class Ghost extends GraphicsGroup {
     public int getGhostDirection() {
         return direction;
     }
+
     public void setGhostDirection(int newDirection) {
         direction = newDirection;
     }

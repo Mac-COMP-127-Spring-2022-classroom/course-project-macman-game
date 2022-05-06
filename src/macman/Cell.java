@@ -34,7 +34,7 @@ public class Cell {
         return rectangle.getWidth();
     }
 
-    public GraphicsGroup getGraphics () {
+    public GraphicsGroup getGraphics() {
         return graphics;
     }
 
@@ -47,7 +47,7 @@ public class Cell {
         graphics.removeAll();
     }
 
-    public boolean removeCoin(){
+    public boolean removeCoin() {
         if (coin != null) {
             graphics.remove(coin);
             coin = null;
@@ -55,19 +55,19 @@ public class Cell {
         }
         return false;
     }
-    
-    public void addCoin(double size){
+
+    public void addCoin(double size) {
         coin = new Coin(size / 6, size / 6);
         addGraphics(coin);
     }
-    
+
     public void removePlayer() {
         if (player != null) {
             graphics.remove(player);
         }
         player = null;
     }
-    
+
     public void addPlayer(Player player) {
         this.player = player;
         addGraphics(player);
@@ -76,7 +76,7 @@ public class Cell {
     public void removeGhost(Ghost ghost) {
         graphics.remove(ghost);
     }
-    
+
     public void addGhost(Ghost ghost) {
         addGraphics(ghost);
     }

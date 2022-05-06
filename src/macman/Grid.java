@@ -19,7 +19,8 @@ public class Grid extends GraphicsGroup {
     private static final int DIRECTION_LEFT = 2;
     private static final int DIRECTION_RIGHT = 3;
 
-    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, List<Ghost> ghosts, MacManGame game) {
+    public Grid(int numRows, int numCols, int size, String[][] maze, Player player, List<Ghost> ghosts,
+        MacManGame game) {
         this.numRows = numRows;
         this.numCols = numCols;
         this.size = size;
@@ -54,7 +55,7 @@ public class Grid extends GraphicsGroup {
         cells[playerRow][playerCol].addPlayer(player);
         for (Ghost ghost : ghosts) {
             cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-            ghost.chooseRandomDirection();   
+            ghost.chooseRandomDirection();
         }
     }
 
@@ -118,18 +119,15 @@ public class Grid extends GraphicsGroup {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostCol(ghost.getGhostCol() + 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-            }
-            else if (ghost.getGhostDirection() == DIRECTION_UP) {
+            } else if (ghost.getGhostDirection() == DIRECTION_UP) {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostCol(ghost.getGhostCol() - 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-            }
-            else if (ghost.getGhostDirection() == DIRECTION_LEFT) {
+            } else if (ghost.getGhostDirection() == DIRECTION_LEFT) {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostRow(ghost.getGhostRow() - 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
-            }
-            else if (ghost.getGhostDirection() == DIRECTION_RIGHT) {
+            } else if (ghost.getGhostDirection() == DIRECTION_RIGHT) {
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].removeGhost(ghost);
                 ghost.setGhostRow(ghost.getGhostRow() + 1);
                 cells[ghost.getGhostRow()][ghost.getGhostCol()].addGhost(ghost);
@@ -139,16 +137,19 @@ public class Grid extends GraphicsGroup {
 
     // returns false if there is a wall one cell in front in the ghost's current direction
     private boolean canGhostMove(Ghost ghost) {
-        if (ghost.getGhostDirection() == DIRECTION_RIGHT && !cells[ghost.getGhostRow() + 1][ghost.getGhostCol()].getTraversable()) {
+        if (ghost.getGhostDirection() == DIRECTION_RIGHT
+            && !cells[ghost.getGhostRow() + 1][ghost.getGhostCol()].getTraversable()) {
             return false;
-        } else if (ghost.getGhostDirection() == DIRECTION_UP && !cells[ghost.getGhostRow()][ghost.getGhostCol() - 1].getTraversable()) {
+        } else if (ghost.getGhostDirection() == DIRECTION_UP
+            && !cells[ghost.getGhostRow()][ghost.getGhostCol() - 1].getTraversable()) {
             return false;
-        } else if (ghost.getGhostDirection() == DIRECTION_LEFT && !cells[ghost.getGhostRow() - 1][ghost.getGhostCol()].getTraversable()) {
+        } else if (ghost.getGhostDirection() == DIRECTION_LEFT
+            && !cells[ghost.getGhostRow() - 1][ghost.getGhostCol()].getTraversable()) {
             return false;
-        } else if (ghost.getGhostDirection() == DIRECTION_DOWN && !cells[ghost.getGhostRow()][ghost.getGhostCol() + 1].getTraversable()) {
+        } else if (ghost.getGhostDirection() == DIRECTION_DOWN
+            && !cells[ghost.getGhostRow()][ghost.getGhostCol() + 1].getTraversable()) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -162,15 +163,15 @@ public class Grid extends GraphicsGroup {
         } else if (ghost.getGhostDirection() == DIRECTION_UP) {
             while (ghost.getGhostDirection() == DIRECTION_UP) {
                 ghost.chooseRandomDirection();
-            }        
+            }
         } else if (ghost.getGhostDirection() == DIRECTION_LEFT) {
             while (ghost.getGhostDirection() == DIRECTION_LEFT) {
                 ghost.chooseRandomDirection();
-            }        
+            }
         } else if (ghost.getGhostDirection() == DIRECTION_DOWN) {
             while (ghost.getGhostDirection() == DIRECTION_DOWN) {
                 ghost.chooseRandomDirection();
-            }    
-        }    
+            }
+        }
     }
 }
