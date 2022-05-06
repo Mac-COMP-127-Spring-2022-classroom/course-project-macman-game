@@ -22,8 +22,7 @@ public class HomeScreen {
 
     private void titleImage() {
         Image titleImage = new Image("sprite-icons/title.png");
-        titleImage.setMaxWidth(400);
-        titleImage.setMaxHeight(100);
+        titleImage.setScale(0.8);
         titleImage.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2.5);
         canvas.add(titleImage);
     }
@@ -78,10 +77,10 @@ public class HomeScreen {
     private void returnButton() {
         CustomButton returnButton = new CustomButton("RETURN TO WELCOME SCREEN");
         returnButton.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 + 80);
-        Image returnStatement = new Image("sprite-icons/return.png");
-        returnStatement.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 + 80);
-        returnStatement.setScale(0.3);
-        canvas.add(returnStatement);
+        Image returnImage = new Image("sprite-icons/return.png");
+        returnImage.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 + 80);
+        returnImage.setScale(0.3);
+        canvas.add(returnImage);
         canvas.add(returnButton);
         returnButton.onClick(() -> {
             canvas.removeAll();
@@ -114,8 +113,7 @@ public class HomeScreen {
     public void winMessage() {
         canvas.removeAll();
         Image winImage = new Image("sprite-icons/win-message.png");
-        winImage.setMaxWidth(400);
-        winImage.setMaxHeight(100);
+        winImage.setScale(0.8);
         winImage.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2.5);
         canvas.add(winImage);
         canvas.draw();
@@ -126,8 +124,7 @@ public class HomeScreen {
     public void loseMessage() {
         canvas.removeAll();
         Image loseImage = new Image("sprite-icons/lose-message.png");
-        loseImage.setMaxWidth(400);
-        loseImage.setMaxHeight(100);
+        loseImage.setScale(0.8);
         loseImage.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2.5);
         canvas.add(loseImage);
         canvas.draw();
