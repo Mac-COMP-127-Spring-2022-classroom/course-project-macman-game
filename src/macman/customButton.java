@@ -14,6 +14,11 @@ import edu.macalester.graphics.GraphicsText;
 public class CustomButton extends EmbeddedSwingComponent {
     private JButton button;
 
+    /**
+     * Creates the new JButton
+     * 
+     * @param title The title that would appear on the button.
+     */
     public CustomButton(String title) {
         this(new JButton(""));
     }
@@ -48,6 +53,11 @@ public class CustomButton extends EmbeddedSwingComponent {
         changed();
     }
 
+    /**
+     * Allows the button to be utilized once it is clicked.
+     * 
+     * @param callback
+     */
     public void onClick(Runnable callback) {
         button.addActionListener(e -> {
             if (getCanvas() == null) {
