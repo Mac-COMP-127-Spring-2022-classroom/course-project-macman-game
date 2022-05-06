@@ -6,14 +6,13 @@ import java.util.List;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
-import edu.macalester.graphics.Image;
 
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
     private static final int CANVAS_HEIGHT = 750;
     private Grid grid;
     private CanvasWindow canvas;
-    private Image titleImage;
+    private HomeScreen screens;
     private String[][] maze;
     private Player player;
     private Ghost blinky, pinky, inky, clyde;
@@ -28,13 +27,12 @@ public class MacManGame {
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
-        homeScreen();
+        screens = new HomeScreen(canvas, this);
+        screens.homeScreen();
         keyControls();
         canvas.animate(() -> {
             doOneMethod();
-
         });
-
     }
 
     private void doOneMethod() {
@@ -50,124 +48,13 @@ public class MacManGame {
         }
     }
 
-    public void homeScreen() {
-        titleImage = new Image("sprite-icons/title.png");
-        titleImage.setMaxWidth(400);
-        titleImage.setMaxHeight(100);
-        titleImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
-
-        playButton();
-        quitButton();
-        instructionsButton();
-        creditsButton();
-        canvas.add(titleImage);
-    }
-
-    private void playButton() {
-        CustomButton playButton = new CustomButton("START");
-        playButton.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
-        GraphicsText text = new GraphicsText("START");
-        String font = "Impact";
-        int fontSize = 20;
-        text.setFont(font, FontStyle.PLAIN, fontSize);
-        text.setFillColor(Color.WHITE);
-        text.setCenter(CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2 + 10);
-        canvas.add(playButton);
-        canvas.add(text);
-        playButton.onClick(() -> {
-            canvas.removeAll();
-            playingScreen();
-        });
-    }
-
-    private void quitButton() {
-        CustomButton quitButton = new CustomButton("QUIT");
-        quitButton.setCenter(CANVAS_WIDTH / 2 + 100, CANVAS_HEIGHT / 2 + 10);
-        GraphicsText text = new GraphicsText("QUIT");
-        String font = "Impact";
-        int fontSize = 20;
-        text.setFont(font, FontStyle.PLAIN, fontSize);
-        text.setFillColor(Color.WHITE);
-        text.setCenter(CANVAS_WIDTH / 2 + 100, CANVAS_HEIGHT / 2 + 10);
-        canvas.add(quitButton);
-        canvas.add(text);
-        quitButton.onClick(() -> canvas.closeWindow());
-    }
-
-    private void instructionsButton() {
-        CustomButton instructionButton = new CustomButton("HOW TO PLAY");
-        instructionButton.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 50);
-        GraphicsText text = new GraphicsText("HOW TO PLAY");
-        String font = "Courier New";
-        int fontSize = 20;
-        text.setFont(font, FontStyle.PLAIN, fontSize);
-        text.setFillColor(Color.WHITE);
-        text.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 50);
-        canvas.add(instructionButton);
-        canvas.add(text);
-        instructionButton.onClick(() -> {
-            canvas.removeAll();
-            manualInstructions();
-        });
-    }
-
-    private void manualInstructions() {
-        CustomButton returnButton = new CustomButton("RETURN TO WELCOME SCREEN");
-        returnButton.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 + 80);
-        GraphicsText returnStatement = new GraphicsText("RETURN TO WELCOME SCREEN");
-        String font = "Courier New";
-        int fontSize = 20;
-        returnStatement.setFont(font, FontStyle.PLAIN, fontSize);
-        returnStatement.setFillColor(Color.ORANGE);
-        returnStatement.setCenter(CANVAS_WIDTH / 2 + 5, CANVAS_HEIGHT / 2 + 80);
-        canvas.add(returnButton);
-        canvas.add(returnStatement);
-        returnButton.onClick(() -> {
-            canvas.removeAll();
-            homeScreen();
-        });
-        textInstruct();
-    }
-
-    private void textInstruct() {
-        String font = "Courier New";
-        int fontSize = 20;
-        GraphicsText instruction = new GraphicsText(
-            "Use your UP, DOWN, RIGHT, and LEFT\narrow keys to move the player!\nTry to collect all of the coins without losing all\nthree of your lives!");
-        instruction.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-        instruction.setFont(font, FontStyle.PLAIN, fontSize);
-        instruction.setFillColor(Color.WHITE);
-        instruction.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-        canvas.add(instruction);
-    }
-
-    private void creditsButton() {
-        CustomButton creditButton = new CustomButton("CREDITS");
-        creditButton.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 80);
-        GraphicsText creditText = new GraphicsText("CREDITS");
-        String font = "Courier New";
-        int fontSize = 20;
-        creditText.setFont(font, FontStyle.PLAIN, fontSize);
-        creditText.setFillColor(Color.WHITE);
-        creditText.setCenter(CANVAS_WIDTH / 2 + 10, CANVAS_HEIGHT / 2 + 80);
-        canvas.add(creditButton);
-        canvas.add(creditText);
-        canvas.add(creditButton);
-        creditButton.onClick(() -> {
-            canvas.removeAll();
-            creditsScreen();
-        });
-    }
-
-    private void playingScreen() {
+    public void playingScreen() {
         player = new Player(20, 20);
         ghosts = new ArrayList<>();
         settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, ghosts, this);
         canvas.add(grid);
         numOfCoins = 310;
-        createGameStatusLabel();
-        createCoinStatusLabel();
     }
 
     private void keyControls() {
@@ -192,6 +79,8 @@ public class MacManGame {
         createGhosts();
         playingGame = true;
         canvas.draw();
+        createGameStatusLabel();
+        createCoinStatusLabel();
     }
 
     private void generateMaze() {
@@ -290,10 +179,9 @@ public class MacManGame {
 
     private void changeLivesStatus() {
         if (player.getNumOfLives() == 0) {
-            loseMessage();
+            screens.loseMessage();
             playingGame = false;
-            creditsScreen();
-            homeScreen();
+            screens.homeScreen();
         } else if (player.getNumOfLives() > 0) {
             gameStatus.setText("Lives Left: " + player.getNumOfLives());
             countdownMessage();
@@ -312,52 +200,12 @@ public class MacManGame {
         canvas.add(coolDownMessage);
     }
 
-    public void creditsScreen() {
-        GraphicsText credits = new GraphicsText(
-            "THANK YOU FOR PLAYING!\n\n\n        CREDITS:\n    Sarah Sylvester\n   Arnika Abeysekera");
-        String font = "Courier New";
-        int fontSize = 20;
-        credits.setFont(font, FontStyle.PLAIN, fontSize);
-        credits.setFillColor(Color.WHITE);
-        credits.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
-        canvas.add(credits);
-        canvas.draw();
-        canvas.pause(3000);
-        canvas.removeAll();
-        homeScreen();
-    }
-
     private void gameWon() {
         if (player.getNumOfLives() > 0 && numOfCoins == 0) {
-            winMessage();
+            screens.winMessage();
             playingGame = false;
-            creditsScreen();
-            homeScreen();
+            screens.homeScreen();
         }
-    }
-
-    private void winMessage() {
-        canvas.removeAll();
-        Image winImage = new Image("sprite-icons/win-message.png");
-        winImage.setMaxWidth(400);
-        winImage.setMaxHeight(100);
-        winImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
-        canvas.add(winImage);
-        canvas.draw();
-        canvas.pause(3000);
-        canvas.removeAll();
-    }
-
-    private void loseMessage() {
-        canvas.removeAll();
-        Image loseImage = new Image("sprite-icons/lose-message.png");
-        loseImage.setMaxWidth(400);
-        loseImage.setMaxHeight(100);
-        loseImage.setCenter(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2.5);
-        canvas.add(loseImage);
-        canvas.draw();
-        canvas.pause(3000);
-        canvas.removeAll();
     }
 
     public static void main(String[] args) {
