@@ -37,7 +37,7 @@ public class MacManGame {
 
     private void doOneMethod() {
         if (playingGame) {
-            if (tracker % 10 == 0) {
+            if (tracker % 7 == 0) {
                 grid.moveGhost(blinky);
                 grid.moveGhost(pinky);
                 grid.moveGhost(inky);

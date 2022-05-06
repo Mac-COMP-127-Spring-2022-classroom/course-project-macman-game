@@ -1,10 +1,7 @@
 package macman;
 
 import edu.macalester.graphics.CanvasWindow;
-import edu.macalester.graphics.FontStyle;
-import edu.macalester.graphics.GraphicsText;
 import edu.macalester.graphics.Image;
-import java.awt.Color;
 
 public class HomeScreen {
     private CanvasWindow canvas;
@@ -34,12 +31,11 @@ public class HomeScreen {
     private void playButton() {
         CustomButton playButton = new CustomButton("START");
         playButton.setCenter(canvas.getWidth() / 2 - 100, canvas.getHeight() / 2 + 10);
-        GraphicsText text = new GraphicsText("START");
-        text.setFont("Impact", FontStyle.PLAIN, 20);
-        text.setFillColor(Color.WHITE);
-        text.setCenter(canvas.getWidth() / 2 - 100, canvas.getHeight() / 2 + 10);
+        Image playImage = new Image("sprite-icons/play.png");
+        playImage.setCenter(canvas.getWidth() / 2 - 100, canvas.getHeight() / 2 + 10);
+        playImage.setScale(0.3);
+        canvas.add(playImage);
         canvas.add(playButton);
-        canvas.add(text);
         playButton.onClick(() -> {
             canvas.removeAll();
             game.playingScreen();
@@ -49,24 +45,22 @@ public class HomeScreen {
     private void quitButton() {
         CustomButton quitButton = new CustomButton("QUIT");
         quitButton.setCenter(canvas.getWidth() / 2 + 100, canvas.getHeight() / 2 + 10);
-        GraphicsText text = new GraphicsText("QUIT");
-        text.setFont("Impact", FontStyle.PLAIN, 20);
-        text.setFillColor(Color.WHITE);
-        text.setCenter(canvas.getWidth() / 2 + 100, canvas.getHeight() / 2 + 10);
+        Image quitImage = new Image("sprite-icons/quit.png");
+        quitImage.setCenter(canvas.getWidth() / 2 + 100, canvas.getHeight() / 2 + 10);
+        quitImage.setScale(0.3);
+        canvas.add(quitImage);
         canvas.add(quitButton);
-        canvas.add(text);
         quitButton.onClick(() -> canvas.closeWindow());
     }
 
     private void instructionsButton() {
         CustomButton instructionButton = new CustomButton("HOW TO PLAY");
-        instructionButton.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 50);
-        GraphicsText text = new GraphicsText("HOW TO PLAY");
-        text.setFont("Courier New", FontStyle.PLAIN, 20);
-        text.setFillColor(Color.WHITE);
-        text.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 50);
+        instructionButton.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 70);
+        Image instructionImage = new Image("sprite-icons/how-to.png");
+        instructionImage.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 70);
+        instructionImage.setScale(0.2);
+        canvas.add(instructionImage);
         canvas.add(instructionButton);
-        canvas.add(text);
         instructionButton.onClick(() -> {
             canvas.removeAll();
             instructions();
@@ -74,12 +68,9 @@ public class HomeScreen {
     }
 
     private void instructions() {
-        GraphicsText instructionsText = new GraphicsText(
-            "Use your UP, DOWN, RIGHT, and LEFT\narrow keys to move the player!\nTry to collect all of the coins without losing all\nthree of your lives!");
+        Image instructionsText = new Image("sprite-icons/instructions.png");
         instructionsText.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2);
-        instructionsText.setFont("Courier New", FontStyle.PLAIN, 20);
-        instructionsText.setFillColor(Color.WHITE);
-        instructionsText.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2);
+        instructionsText.setScale(0.3);
         canvas.add(instructionsText);
         returnButton();
     }
@@ -87,12 +78,11 @@ public class HomeScreen {
     private void returnButton() {
         CustomButton returnButton = new CustomButton("RETURN TO WELCOME SCREEN");
         returnButton.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 + 80);
-        GraphicsText returnStatement = new GraphicsText("RETURN TO WELCOME SCREEN");
-        returnStatement.setFont("Courier New", FontStyle.PLAIN, 20);
-        returnStatement.setFillColor(Color.ORANGE);
-        returnStatement.setCenter(canvas.getWidth() / 2 + 5, canvas.getHeight() / 2 + 80);
-        canvas.add(returnButton);
+        Image returnStatement = new Image("sprite-icons/return.png");
+        returnStatement.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 + 80);
+        returnStatement.setScale(0.3);
         canvas.add(returnStatement);
+        canvas.add(returnButton);
         returnButton.onClick(() -> {
             canvas.removeAll();
             homeScreen();
@@ -101,13 +91,11 @@ public class HomeScreen {
 
     private void creditsButton() {
         CustomButton creditButton = new CustomButton("CREDITS");
-        creditButton.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 80);
-        GraphicsText creditText = new GraphicsText("CREDITS");
-        creditText.setFont("Courier New", FontStyle.PLAIN, 20);
-        creditText.setFillColor(Color.WHITE);
-        creditText.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 80);
-        canvas.add(creditButton);
-        canvas.add(creditText);
+        creditButton.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 100);
+        Image creditImage = new Image("sprite-icons/credits.png");
+        creditImage.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 100);
+        creditImage.setScale(0.2);
+        canvas.add(creditImage);
         canvas.add(creditButton);
         creditButton.onClick(() -> {
             canvas.removeAll();
@@ -116,11 +104,9 @@ public class HomeScreen {
     }
 
     private void creditsScreen() {
-        GraphicsText credits = new GraphicsText(
-            "THANK YOU FOR PLAYING!\n\n\n        CREDITS:\n    Sarah Sylvester\n   Arnika Abeysekera");
-        credits.setFont("Courier New", FontStyle.PLAIN, 20);
-        credits.setFillColor(Color.WHITE);
+        Image credits = new Image("sprite-icons/credits-message.png");
         credits.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 - 50);
+        credits.setScale(0.3);
         canvas.add(credits);
         returnButton();
     }
