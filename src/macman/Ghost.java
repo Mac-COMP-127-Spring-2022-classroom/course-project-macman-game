@@ -5,6 +5,9 @@ import java.util.Random;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Image;
 
+/**
+ * Represents a ghost that will move randomly through the maze as an obstacle for the player.
+ */
 public class Ghost extends GraphicsGroup {
     private Image ghostIcon;
     private int ghostRow;
@@ -13,7 +16,8 @@ public class Ghost extends GraphicsGroup {
     private Random random;
 
     /**
-     * Creates each ghost that will be added onto the canvas.
+     * Creates an instance of a ghost of a specified width, height, and name, that will be added onto
+     * the maze in the specified row and column.
      * 
      * @param ghostWidth  The width of the ghost.
      * @param ghostHeight The height of the ghost.
@@ -35,25 +39,21 @@ public class Ghost extends GraphicsGroup {
     }
 
     /**
-     * Returns the location of the ghost in terms of which row the ghost is situated in.
-     * 
-     * @return
+     * Returns the row the ghost is currently in.
      */
     public int getGhostRow() {
         return ghostRow;
     }
 
     /**
-     * Returns the column location in which the ghost is situated in.
-     * 
-     * @return
+     * Returns the column in which the ghost is currently in.
      */
     public int getGhostCol() {
         return ghostCol;
     }
 
     /**
-     * Allows the row in which the ghost is located in to change.
+     * Changes the row the ghost is situated in.
      * 
      * @param row The new row in which the ghost will be in.
      */
@@ -62,7 +62,7 @@ public class Ghost extends GraphicsGroup {
     }
 
     /**
-     * Allows the column in which the ghost is located in to change.
+     * Changes the column the ghost is situated in.
      * 
      * @param column The new column in which the ghost will be in.
      */
@@ -72,28 +72,21 @@ public class Ghost extends GraphicsGroup {
 
     /**
      * Returns the direction, which is in the form of an integer, that the ghost is heading in.
-     * 
-     * @return
      */
     public int getGhostDirection() {
         return direction;
     }
 
     /**
-     * Allows the direction of the ghost to change as the ghost moves in random directions within the
-     * canvas.
-     * 
-     * @param newDirection The new direction in which the ghost will be heading in.
+     * Sets the direction of the ghost to a new direction.
      */
     public void setGhostDirection(int newDirection) {
         direction = newDirection;
     }
 
     /**
-     * Returns an integer that provides a random number between 0 and 4 (0, 1, 2, or 3), which
-     * determines which direction the ghost will be moving in.
-     * 
-     * @return
+     * Returns a random integer between 0 and 4 (0, 1, 2, or 3), which determines which direction the
+     * ghost will be moving in.
      */
     public int chooseRandomDirection() {
         direction = random.nextInt(4);

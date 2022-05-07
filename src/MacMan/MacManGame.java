@@ -7,6 +7,9 @@ import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
 
+/**
+ * The main class of the game of Mac-Man that handles the logic of the game.
+ */
 public class MacManGame {
     private static final int CANVAS_WIDTH = 720;
     private static final int CANVAS_HEIGHT = 750;
@@ -24,6 +27,9 @@ public class MacManGame {
     private int numOfCoins;
     private boolean playingGame;
 
+    /**
+     * Initializes a game of Mac-Man, creating its main screen.
+     */
     public MacManGame() {
         canvas = new CanvasWindow("Mac-man!", CANVAS_WIDTH, CANVAS_HEIGHT);
         canvas.setBackground(Color.BLACK);
@@ -31,11 +37,41 @@ public class MacManGame {
         screens.homeScreen();
         keyControls();
         canvas.animate(() -> {
-            doOneMethod();
+            animateGhosts();
         });
     }
 
-    private void doOneMethod() {
+    /**
+     * Initializes all game elements - the player, the ghosts, the grid and the coins - within the
+     * game's playing screen.
+     */
+    public void playingScreen() {
+        player = new Player(20, 20);
+        ghosts = new ArrayList<>();
+        settingUpGame();
+        grid = new Grid(24, 24, 30, maze, player, ghosts, this);
+        canvas.add(grid);
+        numOfCoins = 310;
+    }
+
+    /**
+     * Adds all visual game elements - the maze, the ghosts, and the coin and lives labels - to the
+     * playing screen.
+     */
+    private void settingUpGame() {
+        generateMaze();
+        createGhosts();
+        playingGame = true;
+        canvas.draw();
+        createGameStatusLabel();
+        createCoinStatusLabel();
+    }
+
+    /**
+     * Continuously updates the ghosts' positions while checking for ghost/player interactions for each
+     * movement.
+     */
+    private void animateGhosts() {
         if (playingGame) {
             if (tracker % 7 == 0) {
                 grid.moveGhost(blinky);
@@ -48,15 +84,9 @@ public class MacManGame {
         }
     }
 
-    public void playingScreen() {
-        player = new Player(20, 20);
-        ghosts = new ArrayList<>();
-        settingUpGame();
-        grid = new Grid(24, 24, 30, maze, player, ghosts, this);
-        canvas.add(grid);
-        numOfCoins = 310;
-    }
-
+    /**
+     * Moves the player based on the keyboard's arrow keys.
+     */
     private void keyControls() {
         canvas.onKeyDown(event -> {
             if (event.getKey().toString() == "RIGHT_ARROW") {
@@ -70,19 +100,13 @@ public class MacManGame {
             } else {
                 return;
             }
-            doOneMethod();
+            animateGhosts();
         });
     }
 
-    private void settingUpGame() {
-        generateMaze();
-        createGhosts();
-        playingGame = true;
-        canvas.draw();
-        createGameStatusLabel();
-        createCoinStatusLabel();
-    }
-
+    /**
+     * Populates the grid with coins and walls to form the maze.
+     */
     private void generateMaze() {
         maze = new String[24][24];
         maze[0] = new String[] { "B", "B", "B", "B", "B", "B", "B", "B", "B", "B", "", "B", "B", "B", "B", "B", "B",
@@ -135,6 +159,9 @@ public class MacManGame {
             "B", "B", "B", "B", "B", "B", "B" };
     }
 
+    /**
+     * Creates four ghosts and places them at their starting positions at the four corners of the maze.
+     */
     private void createGhosts() {
         blinky = new Ghost(20, 20, "blinky", 6, 6);
         ghosts.add(blinky);
@@ -146,6 +173,9 @@ public class MacManGame {
         ghosts.add(clyde);
     }
 
+    /**
+     * Creates a label that reflects the number of lives the player has to be displayed on the screen.
+     */
     private void createGameStatusLabel() {
         gameStatus = new GraphicsText();
         gameStatus.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
@@ -155,6 +185,10 @@ public class MacManGame {
         canvas.add(gameStatus);
     }
 
+    /**
+     * Creates a label that reflects the number of coin the player has left to collect to be displayed
+     * on the screen.
+     */
     private void createCoinStatusLabel() {
         coinStatus = new GraphicsText();
         coinStatus.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
@@ -164,12 +198,19 @@ public class MacManGame {
         canvas.add(coinStatus);
     }
 
+    /**
+     * Reduces the number of coins by one and changes the coin status label to reflect this.
+     */
     public void updateNumOfCoins() {
         numOfCoins--;
         coinStatus.setText("Coins Left: " + numOfCoins);
         gameWon();
     }
 
+    /**
+     * If there is an interaction between a ghost and the player, reduces the number of lives of the
+     * player by one and changes the lives status label to reflect this.
+     */
     public void updateNumOfLives() {
         if (grid.playerGhostInteraction()) {
             player.setNumOfLives(player.getNumOfLives() - 1);
@@ -177,6 +218,10 @@ public class MacManGame {
         }
     }
 
+    /**
+     * Changes the lives status label based on the number of lives of the player, ending the game and
+     * displaying that you lost if the number of lives is zero.
+     */
     private void changeLivesStatus() {
         if (player.getNumOfLives() == 0) {
             screens.loseMessage();
@@ -191,6 +236,9 @@ public class MacManGame {
         }
     }
 
+    /**
+     * Creates a message that prompts the user to wait for three seconds until the next turn.
+     */
     private void countdownMessage() {
         coolDownMessage = new GraphicsText();
         coolDownMessage.setFont(FontStyle.BOLD, canvas.getWidth() * 0.03);
@@ -200,6 +248,10 @@ public class MacManGame {
         canvas.add(coolDownMessage);
     }
 
+    /**
+     * Displays that you won and ends the game if all the coins have been collected without losing all
+     * three lives.
+     */
     private void gameWon() {
         if (player.getNumOfLives() > 0 && numOfCoins == 0) {
             screens.winMessage();

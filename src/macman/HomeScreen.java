@@ -3,15 +3,25 @@ package macman;
 import edu.macalester.graphics.CanvasWindow;
 import edu.macalester.graphics.Image;
 
+/**
+ * Represents each non-playing screen of the game, such as the home screen and the win/lose screens.
+ */
 public class HomeScreen {
     private CanvasWindow canvas;
     private MacManGame game;
 
+    /**
+     * Initializes an instance of the Mac-Man home screen.
+     */
     public HomeScreen(CanvasWindow canvas, MacManGame game) {
         this.canvas = canvas;
         this.game = game;
     }
 
+    /**
+     * Creates the main home screen with all of its elements: the title image and play, quit, how-to and
+     * credits buttons.
+     */
     public void homeScreen() {
         titleImage();
         playButton();
@@ -20,6 +30,9 @@ public class HomeScreen {
         creditsButton();
     }
 
+    /**
+     * Creates the title image to be added to the home screen.
+     */
     private void titleImage() {
         Image titleImage = new Image("sprite-icons/title.png");
         titleImage.setScale(0.8);
@@ -27,6 +40,9 @@ public class HomeScreen {
         canvas.add(titleImage);
     }
 
+    /**
+     * Creates a "play" button that when clicked, enters the playing screen and starts the game.
+     */
     private void playButton() {
         CustomButton playButton = new CustomButton("START");
         playButton.setCenter(canvas.getWidth() / 2 - 100, canvas.getHeight() / 2 + 10);
@@ -41,6 +57,9 @@ public class HomeScreen {
         });
     }
 
+    /**
+     * Creates a "quit" button that when clicked, exits out and closes the game.
+     */
     private void quitButton() {
         CustomButton quitButton = new CustomButton("QUIT");
         quitButton.setCenter(canvas.getWidth() / 2 + 100, canvas.getHeight() / 2 + 10);
@@ -52,6 +71,21 @@ public class HomeScreen {
         quitButton.onClick(() -> canvas.closeWindow());
     }
 
+    /**
+     * Creates the "how to play" screen that displays both the game's instructions, and a button to
+     * return to the main home screen.
+     */
+    private void instructionsScreen() {
+        Image instructionsText = new Image("sprite-icons/instructions.png");
+        instructionsText.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2);
+        instructionsText.setScale(0.3);
+        canvas.add(instructionsText);
+        returnButton();
+    }
+
+    /**
+     * Create a "how to play" button that when clicked, enters the "how to play" screen.
+     */
     private void instructionsButton() {
         CustomButton instructionButton = new CustomButton("HOW TO PLAY");
         instructionButton.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 70);
@@ -62,18 +96,13 @@ public class HomeScreen {
         canvas.add(instructionButton);
         instructionButton.onClick(() -> {
             canvas.removeAll();
-            instructions();
+            instructionsScreen();
         });
     }
 
-    private void instructions() {
-        Image instructionsText = new Image("sprite-icons/instructions.png");
-        instructionsText.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2);
-        instructionsText.setScale(0.3);
-        canvas.add(instructionsText);
-        returnButton();
-    }
-
+    /**
+     * Creates a "return" button that when clicked, returns the user to the main home screen.
+     */
     private void returnButton() {
         CustomButton returnButton = new CustomButton("RETURN TO WELCOME SCREEN");
         returnButton.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 + 80);
@@ -88,6 +117,21 @@ public class HomeScreen {
         });
     }
 
+    /**
+     * Creates the "credits" screen that displays credits to the creators of the game, and a button to
+     * return to the main home screen.
+     */
+    private void creditsScreen() {
+        Image credits = new Image("sprite-icons/credits-message.png");
+        credits.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 - 50);
+        credits.setScale(0.3);
+        canvas.add(credits);
+        returnButton();
+    }
+
+    /**
+     * Create a "credits" button that when clicked, enters the "credits" screen.
+     */
     private void creditsButton() {
         CustomButton creditButton = new CustomButton("CREDITS");
         creditButton.setCenter(canvas.getWidth() / 2 + 10, canvas.getHeight() / 2 + 100);
@@ -102,14 +146,9 @@ public class HomeScreen {
         });
     }
 
-    private void creditsScreen() {
-        Image credits = new Image("sprite-icons/credits-message.png");
-        credits.setCenter(canvas.getWidth() / 2, canvas.getHeight() / 2 - 50);
-        credits.setScale(0.3);
-        canvas.add(credits);
-        returnButton();
-    }
-
+    /**
+     * Creates a "win" screen that displays the "you win!" message.
+     */
     public void winMessage() {
         canvas.removeAll();
         Image winImage = new Image("sprite-icons/win-message.png");
@@ -121,6 +160,9 @@ public class HomeScreen {
         canvas.removeAll();
     }
 
+    /**
+     * Creates a "lose" screen that displays the "you lose" message.
+     */
     public void loseMessage() {
         canvas.removeAll();
         Image loseImage = new Image("sprite-icons/lose-message.png");

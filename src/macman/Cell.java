@@ -3,6 +3,9 @@ package macman;
 import edu.macalester.graphics.GraphicsGroup;
 import edu.macalester.graphics.Rectangle;
 
+/**
+ * Represents a single cell in the maze's grid.
+ */
 public class Cell {
     private GraphicsGroup graphics;
     private Rectangle rectangle;
@@ -10,6 +13,9 @@ public class Cell {
     private Coin coin;
     private Player player;
 
+    /**
+     * Constructs an instance of a cell that is a square of a speicifed width/height.
+     */
     public Cell(double size) {
         graphics = new GraphicsGroup();
         rectangle = new Rectangle(0, 0, size, size);
@@ -18,38 +24,30 @@ public class Cell {
     }
 
     /**
-     * Allows the ability to traverse to change based on the location of the player.
+     * Checks if an object (whether it be player or ghost) can enter the cell.
      * 
-     * @param isTraversable A boolean that checks whether the player can continue moving or not.
-     */
-    public void setTraversable(boolean isTraversable) {
-        this.isTraversable = isTraversable;
-    }
-
-    /**
-     * Returns a boolean that is either true or false, and the outcome can determine whether the player
-     * can continue moving or not.
-     * 
-     * @return
+     * @return true if it can, false if it cannot.
      */
     public boolean getTraversable() {
         return isTraversable;
     }
 
     /**
-     * Returns a GraphicsGroup, indicating which graphic is in a particular cell within the grid.
-     * 
-     * @return
+     * Changes whether or not an object can enter the cell based on the inputted value.
+     */
+    public void setTraversable(boolean isTraversable) {
+        this.isTraversable = isTraversable;
+    }
+
+    /**
+     * Returns the graphics in the cell.
      */
     public GraphicsGroup getGraphics() {
         return graphics;
     }
 
     /**
-     * Adds a particular graphic to be added into the GraphicsGroup, which will allow the given graphic
-     * to be added onto the canvas.
-     * 
-     * @param group
+     * Adds a particular graphic to be added into the GraphicsGroup.
      */
     public void addGraphics(GraphicsGroup group) {
         group.setCenter(rectangle.getCenter());
@@ -57,11 +55,9 @@ public class Cell {
     }
 
     /**
-     * Returns a boolean that states if there is a coin in a particular cell, then the coin will be
-     * removed from the GraphicsGroup and be set to null. Afterwards, the method would return true;
-     * however, if there are no coins in a cell, the method will return false.
+     * Checks if there is a coin in the cell, and removes it from the cell if there is.
      * 
-     * @return
+     * @return true once a coin has been removed from the cell, or false if there is no coin to remove.
      */
     public boolean removeCoin() {
         if (coin != null) {
@@ -73,9 +69,7 @@ public class Cell {
     }
 
     /**
-     * Allows the user to add a coin into a cell.
-     * 
-     * @param size The size of the coin
+     * Adds a coin of a certain size to the cell.
      */
     public void addCoin(double size) {
         coin = new Coin(size / 6, size / 6);
@@ -83,7 +77,7 @@ public class Cell {
     }
 
     /**
-     * Allows the player to be removed from the cell as the player moves from one cell to another.
+     * Removes the player from the cell.
      */
     public void removePlayer() {
         if (player != null) {
@@ -93,9 +87,7 @@ public class Cell {
     }
 
     /**
-     * Allows the player to be added into a new cell.
-     * 
-     * @param player The player in which the user will be moving
+     * Adds the player to the cell.
      */
     public void addPlayer(Player player) {
         this.player = player;
@@ -103,20 +95,14 @@ public class Cell {
     }
 
     /**
-     * Allows the ghost to be removed from the canvas as the ghost moves from one cell to another
-     * 
-     * @param ghost One of the ghosts, which could be blinky, inky, pinky, or clyde.
+     * Removes the ghost from the cell.
      */
     public void removeGhost(Ghost ghost) {
         graphics.remove(ghost);
     }
 
     /**
-     * Allows the opportunity to add a ghost into a new cell, especially as the ghost moves into a new
-     * cell; that way, with the removeGhost and addGhost methods, we can see the ghosts shifting
-     * positions within the canvas.
-     * 
-     * @param ghost One of the ghosts, which could be blinky, pinky, inky, or clyde.
+     * Adds the specified ghost to the cell.
      */
     public void addGhost(Ghost ghost) {
         addGraphics(ghost);

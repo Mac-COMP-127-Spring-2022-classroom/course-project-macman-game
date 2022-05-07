@@ -11,6 +11,9 @@ import javax.swing.border.LineBorder;
 import edu.macalester.graphics.FontStyle;
 import edu.macalester.graphics.GraphicsText;
 
+/**
+ * Represents a transparent button.
+ */
 public class CustomButton extends EmbeddedSwingComponent {
     private JButton button;
 
@@ -23,6 +26,9 @@ public class CustomButton extends EmbeddedSwingComponent {
         this(new JButton(""));
     }
 
+    /**
+     * Creates a new button that cannot be seen on the screen, but can still be clicked.
+     */
     private CustomButton(JButton button) {
         super(button);
         this.button = button;

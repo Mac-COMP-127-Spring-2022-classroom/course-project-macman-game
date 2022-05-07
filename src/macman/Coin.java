@@ -5,14 +5,14 @@ import edu.macalester.graphics.GraphicsGroup;
 
 import java.awt.Color;
 
+/**
+ * Represents a single coin that will populate the maze for the player to collect.
+ */
 public class Coin extends GraphicsGroup {
     private Ellipse coin;
 
     /**
-     * Creates a single coin within the canvas.
-     * 
-     * @param ballWidth  The width of the coin.
-     * @param ballHeight The height of the coin.
+     * Creates an instance of a coin of a specified width and height.
      */
     public Coin(double ballWidth, double ballHeight) {
         super();
