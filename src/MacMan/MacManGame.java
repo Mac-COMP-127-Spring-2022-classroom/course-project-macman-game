@@ -42,25 +42,25 @@ public class MacManGame {
     }
 
     /**
-     * Initializes all game elements - the player, the ghosts, the grid and the coins - within the
+     * Initializes all interactable game elements - the player, the ghosts, the grid and the coins - within the
      * game's playing screen.
      */
     public void playingScreen() {
         player = new Player(20, 20);
         ghosts = new ArrayList<>();
+        createGhosts();
+        numOfCoins = 310;
         settingUpGame();
         grid = new Grid(24, 24, 30, maze, player, ghosts, this);
         canvas.add(grid);
-        numOfCoins = 310;
     }
 
     /**
-     * Adds all visual game elements - the maze, the ghosts, and the coin and lives labels - to the
+     * Adds all static visual game elements - the maze, and the coin and lives labels - to the
      * playing screen.
      */
     private void settingUpGame() {
         generateMaze();
-        createGhosts();
         playingGame = true;
         canvas.draw();
         createGameStatusLabel();
