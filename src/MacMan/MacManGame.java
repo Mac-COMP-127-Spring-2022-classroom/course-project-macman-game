@@ -42,7 +42,7 @@ public class MacManGame {
     }
 
     /**
-     * Initializes all interactable game elements - the player, the ghosts, the grid and the coins - within the
+     * Initializes all interactable game elements - the player, the ghosts, and the grid - within the
      * game's playing screen.
      */
     public void playingScreen() {
