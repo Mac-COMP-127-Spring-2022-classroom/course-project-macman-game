@@ -13,6 +13,8 @@ import edu.macalester.graphics.GraphicsText;
 
 /**
  * Represents a transparent button.
+ * 
+ * Original code copied from the Macalester kilt-graphics.
  */
 public class CustomButton extends EmbeddedSwingComponent {
     private JButton button;

@@ -9,6 +9,9 @@ import javax.swing.JComponent;
 
 import edu.macalester.graphics.GraphicsObject;
 
+/**
+ * Original code copied from the Macalester kilt-graphics.
+ */
 abstract class EmbeddedSwingComponent extends GraphicsObject {
 
     private final JComponent component;
