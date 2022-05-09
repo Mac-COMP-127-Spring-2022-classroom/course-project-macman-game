@@ -56,8 +56,8 @@ public class MacManGame {
     }
 
     /**
-     * Adds all static visual game elements - the maze, and the coin and lives labels - to the
-     * playing screen.
+     * Adds all static visual game elements - the maze, and the coin and lives labels - to the playing
+     * screen.
      */
     private void settingUpGame() {
         generateMaze();
